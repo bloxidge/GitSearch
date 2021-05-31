@@ -16,6 +16,12 @@
 		FD425C3526653CF700AA1131 /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C1D26653CF700AA1131 /* DesignableView.swift */; };
 		FD425C44266540FB00AA1131 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = FD425C43266540FB00AA1131 /* PromiseKit */; };
 		FD425C4726654AF100AA1131 /* PMKFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = FD425C4626654AF100AA1131 /* PMKFoundation */; };
+		FD425C70266557DC00AA1131 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C67266557DC00AA1131 /* ApiService.swift */; };
+		FD425C71266557DC00AA1131 /* ApiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C68266557DC00AA1131 /* ApiConfig.swift */; };
+		FD425C72266557DC00AA1131 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C6A266557DC00AA1131 /* HttpMethod.swift */; };
+		FD425C73266557DC00AA1131 /* HttpHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C6B266557DC00AA1131 /* HttpHeader.swift */; };
+		FD425C74266557DC00AA1131 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C6C266557DC00AA1131 /* Request.swift */; };
+		FD425C75266557DC00AA1131 /* URLRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C6E266557DC00AA1131 /* URLRequestBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +46,12 @@
 		FD425C1726653CF700AA1131 /* NibBackedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibBackedView.swift; sourceTree = "<group>"; };
 		FD425C1C26653CF700AA1131 /* UIScrollView+refresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+refresh.swift"; sourceTree = "<group>"; };
 		FD425C1D26653CF700AA1131 /* DesignableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
+		FD425C67266557DC00AA1131 /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		FD425C68266557DC00AA1131 /* ApiConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiConfig.swift; sourceTree = "<group>"; };
+		FD425C6A266557DC00AA1131 /* HttpMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
+		FD425C6B266557DC00AA1131 /* HttpHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpHeader.swift; sourceTree = "<group>"; };
+		FD425C6C266557DC00AA1131 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		FD425C6E266557DC00AA1131 /* URLRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +151,7 @@
 		FD425C1F26653CF700AA1131 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				FD425C65266557DC00AA1131 /* Api */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -149,6 +162,35 @@
 				FD425BD026653B1000AA1131 /* Info.plist */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FD425C65266557DC00AA1131 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				FD425C69266557DC00AA1131 /* Request */,
+				FD425C67266557DC00AA1131 /* ApiService.swift */,
+				FD425C68266557DC00AA1131 /* ApiConfig.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
+		FD425C69266557DC00AA1131 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				FD425C6D266557DC00AA1131 /* Builder */,
+				FD425C6A266557DC00AA1131 /* HttpMethod.swift */,
+				FD425C6B266557DC00AA1131 /* HttpHeader.swift */,
+				FD425C6C266557DC00AA1131 /* Request.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		FD425C6D266557DC00AA1131 /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				FD425C6E266557DC00AA1131 /* URLRequestBuilder.swift */,
+			);
+			path = Builder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,10 +300,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD425C75266557DC00AA1131 /* URLRequestBuilder.swift in Sources */,
 				FD425C3426653CF700AA1131 /* UIScrollView+refresh.swift in Sources */,
 				FD425C3526653CF700AA1131 /* DesignableView.swift in Sources */,
+				FD425C70266557DC00AA1131 /* ApiService.swift in Sources */,
 				FD425BB826653B0C00AA1131 /* AppDelegate.swift in Sources */,
+				FD425C72266557DC00AA1131 /* HttpMethod.swift in Sources */,
+				FD425C71266557DC00AA1131 /* ApiConfig.swift in Sources */,
+				FD425C74266557DC00AA1131 /* Request.swift in Sources */,
 				FD425C3026653CF700AA1131 /* NibBackedView.swift in Sources */,
+				FD425C73266557DC00AA1131 /* HttpHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
