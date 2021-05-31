@@ -16,6 +16,12 @@
 		FD425C3526653CF700AA1131 /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C1D26653CF700AA1131 /* DesignableView.swift */; };
 		FD425C44266540FB00AA1131 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = FD425C43266540FB00AA1131 /* PromiseKit */; };
 		FD425C4726654AF100AA1131 /* PMKFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = FD425C4626654AF100AA1131 /* PMKFoundation */; };
+		FD425C5F266554CA00AA1131 /* RepoListModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C55266554CA00AA1131 /* RepoListModule.swift */; };
+		FD425C60266554CA00AA1131 /* RepoListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C57266554CA00AA1131 /* RepoListPresenter.swift */; };
+		FD425C61266554CA00AA1131 /* RepoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C59266554CA00AA1131 /* RepoListView.swift */; };
+		FD425C62266554CA00AA1131 /* RepoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C5A266554CA00AA1131 /* RepoListViewController.swift */; };
+		FD425C63266554CA00AA1131 /* RepoListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C5C266554CA00AA1131 /* RepoListInteractor.swift */; };
+		FD425C64266554CA00AA1131 /* RepoListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C5E266554CA00AA1131 /* RepoListRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +46,12 @@
 		FD425C1726653CF700AA1131 /* NibBackedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibBackedView.swift; sourceTree = "<group>"; };
 		FD425C1C26653CF700AA1131 /* UIScrollView+refresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+refresh.swift"; sourceTree = "<group>"; };
 		FD425C1D26653CF700AA1131 /* DesignableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
+		FD425C55266554CA00AA1131 /* RepoListModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoListModule.swift; sourceTree = "<group>"; };
+		FD425C57266554CA00AA1131 /* RepoListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoListPresenter.swift; sourceTree = "<group>"; };
+		FD425C59266554CA00AA1131 /* RepoListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoListView.swift; sourceTree = "<group>"; };
+		FD425C5A266554CA00AA1131 /* RepoListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoListViewController.swift; sourceTree = "<group>"; };
+		FD425C5C266554CA00AA1131 /* RepoListInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoListInteractor.swift; sourceTree = "<group>"; };
+		FD425C5E266554CA00AA1131 /* RepoListRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoListRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +126,7 @@
 		FD425BE826653CD300AA1131 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				FD425C54266554CA00AA1131 /* RepoList */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -149,6 +162,51 @@
 				FD425BD026653B1000AA1131 /* Info.plist */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FD425C54266554CA00AA1131 /* RepoList */ = {
+			isa = PBXGroup;
+			children = (
+				FD425C58266554CA00AA1131 /* View */,
+				FD425C5B266554CA00AA1131 /* Interactor */,
+				FD425C56266554CA00AA1131 /* Presenter */,
+				FD425C5D266554CA00AA1131 /* Router */,
+				FD425C55266554CA00AA1131 /* RepoListModule.swift */,
+			);
+			path = RepoList;
+			sourceTree = "<group>";
+		};
+		FD425C56266554CA00AA1131 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				FD425C57266554CA00AA1131 /* RepoListPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		FD425C58266554CA00AA1131 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FD425C59266554CA00AA1131 /* RepoListView.swift */,
+				FD425C5A266554CA00AA1131 /* RepoListViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FD425C5B266554CA00AA1131 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				FD425C5C266554CA00AA1131 /* RepoListInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		FD425C5D266554CA00AA1131 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				FD425C5E266554CA00AA1131 /* RepoListRouter.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,8 +316,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD425C62266554CA00AA1131 /* RepoListViewController.swift in Sources */,
+				FD425C5F266554CA00AA1131 /* RepoListModule.swift in Sources */,
+				FD425C61266554CA00AA1131 /* RepoListView.swift in Sources */,
 				FD425C3426653CF700AA1131 /* UIScrollView+refresh.swift in Sources */,
+				FD425C60266554CA00AA1131 /* RepoListPresenter.swift in Sources */,
 				FD425C3526653CF700AA1131 /* DesignableView.swift in Sources */,
+				FD425C64266554CA00AA1131 /* RepoListRouter.swift in Sources */,
+				FD425C63266554CA00AA1131 /* RepoListInteractor.swift in Sources */,
 				FD425BB826653B0C00AA1131 /* AppDelegate.swift in Sources */,
 				FD425C3026653CF700AA1131 /* NibBackedView.swift in Sources */,
 			);
