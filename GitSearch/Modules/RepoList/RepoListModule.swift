@@ -10,9 +10,9 @@ import UIKit
 class RepoListModule {
     
     static func build() -> UIViewController {
-        let view = RepoListViewController()//.instantiateFromStoryboard(name: "RepoList")
+        let view = RepoListViewController()
         let presenter = RepoListPresenterImpl()
-        let interactor = RepoListInteractorImpl()
+        let interactor = RepoListInteractorImpl(api: ApiServiceImpl(requestBuilder: URLRequestBuilderImpl()))
         let router = RepoListRouterImpl()
         
         view.presenter = presenter

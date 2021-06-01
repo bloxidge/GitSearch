@@ -8,5 +8,13 @@
 import Foundation
 
 struct ApiConfig {
-    static let baseUrl = "https://api.github.com/"
+    
+    let baseUrl = "https://api.github.com"
+    
+    let decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
+    }()
 }
