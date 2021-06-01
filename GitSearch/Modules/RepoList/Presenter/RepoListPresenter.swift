@@ -12,8 +12,9 @@ protocol RepoListPresenter {
     func attachToView()
     @discardableResult
     func performSearch(_ searchQuery: String) -> Promise<Void>
-    func getVisibleCount() -> Int?
-    func getRepository(at index: Int) -> Repository?
+    func getVisibleResults() -> [Repository]
+    func getVisibleCount() -> Int
+    func getRepository(at index: Int) -> Repository
 }
 
 class RepoListPresenterImpl: RepoListPresenter {
@@ -46,11 +47,15 @@ class RepoListPresenterImpl: RepoListPresenter {
         return promise.asVoid()
     }
     
-    func getVisibleCount() -> Int? {
-        interactor.results?.items.count
+    func getVisibleResults() -> [Repository] {
+        interactor.results?.items ?? []
     }
     
-    func getRepository(at index: Int) -> Repository? {
-        interactor.results?.items[index]
+    func getVisibleCount() -> Int {
+        getVisibleResults().count
+    }
+    
+    func getRepository(at index: Int) -> Repository {
+        getVisibleResults()[index]
     }
 }

@@ -9,10 +9,18 @@ import UIKit
 
 class RepoListViewController: UICollectionViewController {
     
+    typealias DataSource = UICollectionViewDiffableDataSource<Int, Repository>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Repository>
+    
+    lazy var dataSource: DataSource = {
+        DataSource(collectionView: collectionView) { collectionView, indexPath, repository in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RepoListCell",
+                                                          for: indexPath) as? RepoListCollectionViewCell
+            cell?.title = repository.fullName
+            return cell
+        }
+    }()
     var presenter: RepoListPresenter!
-//    lazy var dataSource: DataSource = buildDataSource()
-//
-//    typealias DataSource = UICollectionViewDiffableDataSource<Int, Repository>
     
     convenience init() {
         self.init(collectionViewLayout: Self.createCompositionalLayout())
@@ -38,6 +46,14 @@ class RepoListViewController: UICollectionViewController {
         collectionView.backgroundColor = .systemBackground
         collectionView.register(RepoListCollectionViewCell.self, forCellWithReuseIdentifier: "RepoListCell")
     }
+    
+    private func applySnapshot(animatingDifferences: Bool = true) {
+        var snapshot = Snapshot()
+        snapshot.appendSections([0])
+        snapshot.appendItems(presenter.getVisibleResults())
+        
+        dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
+    }
 }
 
 // MARK: - RepoListView
@@ -51,33 +67,12 @@ extension RepoListViewController: RepoListView {
         case .loading:
             break
         case .doneResults:
-            collectionView.reloadData()
-            break
+            applySnapshot()
         case .doneEmpty:
             break
         case .error:
             break
         }
-    }
-}
-
-// MARK: - UICollectionViewDataSource
-
-extension RepoListViewController {
-    
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter.getVisibleCount() ?? 0
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let repository = presenter.getRepository(at: indexPath.item)
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RepoListCell", for: indexPath) as! RepoListCollectionViewCell
-        cell.title = repository?.fullName
-        return cell
     }
 }
 
