@@ -9,6 +9,10 @@ import Foundation
 
 enum RepoListViewState: Equatable {
     case initial
+    case loading
+    case doneResults
+    case doneEmpty
+    case error
 }
 
 protocol RepoListView: AnyObject {

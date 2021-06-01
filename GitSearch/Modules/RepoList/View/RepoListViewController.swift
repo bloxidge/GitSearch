@@ -10,6 +10,9 @@ import UIKit
 class RepoListViewController: UICollectionViewController {
     
     var presenter: RepoListPresenter!
+//    lazy var dataSource: DataSource = buildDataSource()
+//
+//    typealias DataSource = UICollectionViewDiffableDataSource<Int, Repository>
     
     convenience init() {
         self.init(collectionViewLayout: Self.createCompositionalLayout())
@@ -25,8 +28,15 @@ class RepoListViewController: UICollectionViewController {
         presenter.attachToView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        presenter.performSearch("Alamofire")
+    }
+    
     private func setUpCollectionView() {
         collectionView.backgroundColor = .systemBackground
+        collectionView.register(RepoListCollectionViewCell.self, forCellWithReuseIdentifier: "RepoListCell")
     }
 }
 
@@ -37,9 +47,37 @@ extension RepoListViewController: RepoListView {
     func updateView(state: RepoListViewState) {
         switch state {
         case .initial:
-            // Set up initial view state
+            break
+        case .loading:
+            break
+        case .doneResults:
+            collectionView.reloadData()
+            break
+        case .doneEmpty:
+            break
+        case .error:
             break
         }
+    }
+}
+
+// MARK: - UICollectionViewDataSource
+
+extension RepoListViewController {
+    
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return presenter.getVisibleCount() ?? 0
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let repository = presenter.getRepository(at: indexPath.item)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RepoListCell", for: indexPath) as! RepoListCollectionViewCell
+        cell.title = repository?.fullName
+        return cell
     }
 }
 

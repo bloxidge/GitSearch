@@ -34,6 +34,7 @@
 		FD425C7F2665B72D00AA1131 /* SortMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C7E2665B72D00AA1131 /* SortMethod.swift */; };
 		FD425C822665B79E00AA1131 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C812665B79E00AA1131 /* Order.swift */; };
 		FD425C842666662500AA1131 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C832666662500AA1131 /* String+Utils.swift */; };
+		FD425C872666A2F600AA1131 /* RepoListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C862666A2F600AA1131 /* RepoListCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		FD425C7E2665B72D00AA1131 /* SortMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortMethod.swift; sourceTree = "<group>"; };
 		FD425C812665B79E00AA1131 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		FD425C832666662500AA1131 /* String+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
+		FD425C862666A2F600AA1131 /* RepoListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoListCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +216,7 @@
 		FD425C58266554CA00AA1131 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FD425C852666A24000AA1131 /* Cell */,
 				FD425C59266554CA00AA1131 /* RepoListView.swift */,
 				FD425C5A266554CA00AA1131 /* RepoListViewController.swift */,
 			);
@@ -283,6 +286,14 @@
 				FD425C7C2665B62F00AA1131 /* GetSearchRepositoriesRequest.swift */,
 			);
 			path = Request;
+			sourceTree = "<group>";
+		};
+		FD425C852666A24000AA1131 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				FD425C862666A2F600AA1131 /* RepoListCollectionViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -406,6 +417,7 @@
 				FD425C63266554CA00AA1131 /* RepoListInteractor.swift in Sources */,
 				FD425C70266557DC00AA1131 /* ApiService.swift in Sources */,
 				FD425C7D2665B62F00AA1131 /* GetSearchRepositoriesRequest.swift in Sources */,
+				FD425C872666A2F600AA1131 /* RepoListCollectionViewCell.swift in Sources */,
 				FD425C7F2665B72D00AA1131 /* SortMethod.swift in Sources */,
 				FD425BB826653B0C00AA1131 /* AppDelegate.swift in Sources */,
 				FD425C72266557DC00AA1131 /* HttpMethod.swift in Sources */,
