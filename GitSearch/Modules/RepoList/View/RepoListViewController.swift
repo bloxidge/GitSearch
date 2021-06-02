@@ -164,22 +164,26 @@ extension RepoListViewController {
     private func getSortMenu() -> UIMenu {
         let sortActions = SortMethod.allCases.map { method -> UIMenuElement in
             let isSelected = presenter.selectedSortMethod == method
-            return UIAction(title: method.title, state: isSelected ? .on : .off) { [weak self] _ in
+            return UIAction(title: method.title,
+                            state: isSelected ? .on : .off) { [weak self] _ in
                 self?.presenter.selectSortMethod(method)
                 self?.updateSortMenu()
             }
         }
         let orderActions = Order.allCases.map { order -> UIMenuElement in
             let isSelected = presenter.selectedOrder == order
-            return UIAction(title: order.title, state: isSelected ? .on : .off) { [weak self] _ in
+            let isSortBestMatch = presenter.selectedSortMethod == .bestMatch
+            return UIAction(title: order.title,
+                            attributes: isSortBestMatch ? .hidden : [],
+                            state: isSelected ? .on : .off) { [weak self] _ in
                 self?.presenter.selectOrder(order)
                 self?.updateSortMenu()
             }
         }
         
         return UIMenu(title: "Sort", children: [
-            UIMenu(options: .displayInline, children: orderActions),
-            UIMenu(options: .displayInline, children: sortActions)
+            UIMenu(options: .displayInline, children: sortActions),
+            UIMenu(options: .displayInline, children: orderActions)
         ])
     }
 }
