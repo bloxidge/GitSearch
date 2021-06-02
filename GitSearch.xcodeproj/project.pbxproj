@@ -37,6 +37,7 @@
 		FD425C872666A2F600AA1131 /* RepoListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C862666A2F600AA1131 /* RepoListCollectionViewCell.swift */; };
 		FD425C8B2666DF7000AA1131 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C8A2666DF7000AA1131 /* UIView+Constraints.swift */; };
 		FD425C8E2666ED7C00AA1131 /* LoadingSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C8D2666ED7C00AA1131 /* LoadingSpinner.swift */; };
+		FD425C902667B92F00AA1131 /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C8F2667B92E00AA1131 /* RootNavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 		FD425C862666A2F600AA1131 /* RepoListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoListCollectionViewCell.swift; sourceTree = "<group>"; };
 		FD425C8A2666DF7000AA1131 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		FD425C8D2666ED7C00AA1131 /* LoadingSpinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingSpinner.swift; sourceTree = "<group>"; };
+		FD425C8F2667B92E00AA1131 /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +127,7 @@
 		FD425BB626653B0C00AA1131 /* GitSearch */ = {
 			isa = PBXGroup;
 			children = (
-				FD425C8C2666ECE600AA1131 /* Components */,
+				FD425C8C2666ECE600AA1131 /* Common */,
 				FD425BE826653CD300AA1131 /* Modules */,
 				FD425C1F26653CF700AA1131 /* Services */,
 				FD425C1626653CF700AA1131 /* Utilities */,
@@ -302,12 +304,13 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		FD425C8C2666ECE600AA1131 /* Components */ = {
+		FD425C8C2666ECE600AA1131 /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				FD425C8D2666ED7C00AA1131 /* LoadingSpinner.swift */,
+				FD425C8F2667B92E00AA1131 /* RootNavigationController.swift */,
 			);
-			path = Components;
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -436,6 +439,7 @@
 				FD425C8E2666ED7C00AA1131 /* LoadingSpinner.swift in Sources */,
 				FD425C7F2665B72D00AA1131 /* SortMethod.swift in Sources */,
 				FD425BB826653B0C00AA1131 /* AppDelegate.swift in Sources */,
+				FD425C902667B92F00AA1131 /* RootNavigationController.swift in Sources */,
 				FD425C72266557DC00AA1131 /* HttpMethod.swift in Sources */,
 				FD425C782665955C00AA1131 /* Repository.swift in Sources */,
 				FD425C71266557DC00AA1131 /* ApiConfig.swift in Sources */,
