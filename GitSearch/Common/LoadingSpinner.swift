@@ -20,9 +20,12 @@ class LoadingSpinner: UIView {
     }
     
     private func construct() {
-        backgroundColor = .darkGray.withAlphaComponent(0.3)
+        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+        let backgroundView = UIVisualEffectView(effect: blurEffect)
+        addSubview(backgroundView)
         addSubview(activityIndicator)
         
+        backgroundView.autoPinToSuperview()
         activityIndicator.autoCenterInSuperview()
         activityIndicator.startAnimating()
     }
