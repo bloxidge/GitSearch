@@ -11,15 +11,15 @@ import PromiseKit
 protocol RepoListPresenter {
     func attachToView()
     
-    @discardableResult
-    func performSearch(_ searchQuery: String) -> Promise<Void>
+    var selectedSortMethod: SortMethod { get }
+    var selectedOrder: Order { get }
+    var isReloadEnabled: Bool { get }
+    
+    func performSearch(_ searchQuery: String)
+    func repeatLastSearch()
     func getVisibleResults() -> [Repository]
     func getVisibleCount() -> Int
     func getRepository(at index: Int) -> Repository
-    
-    var selectedSortMethod: SortMethod { get }
-    var selectedOrder: Order { get }
-    
     func selectSortMethod(_ sortMethod: SortMethod)
     func selectOrder(_ order: Order)
 }
@@ -32,10 +32,50 @@ class RepoListPresenterImpl: RepoListPresenter {
     
     private(set) var selectedSortMethod: SortMethod = .bestMatch
     private(set) var selectedOrder: Order = .descending
+    var isReloadEnabled: Bool { lastSearchQuery != nil }
     private var lastSearchQuery: String?
     
     func attachToView() {
         view.updateView(state: .initial)
+    }
+    
+    func performSearch(_ searchQuery: String) {
+        view.updateView(state: .loading)
+        
+        lastSearchQuery = searchQuery
+        
+        firstly {
+            interactor.fetchRepoSearchResults(searchQuery,
+                                              sort: selectedSortMethod,
+                                              order: selectedOrder)
+        }.done { results in
+            if results.items.isEmpty {
+                self.view.updateView(state: .doneEmpty)
+            } else {
+                self.view.updateView(state: .doneResults)
+            }
+        }.catch { error in
+            print(error)
+            self.view.updateView(state: .error)
+        }
+    }
+    
+    func repeatLastSearch() {
+        if let searchQuery = lastSearchQuery {
+            performSearch(searchQuery)
+        }
+    }
+    
+    func getVisibleResults() -> [Repository] {
+        interactor.results?.items ?? []
+    }
+    
+    func getVisibleCount() -> Int {
+        getVisibleResults().count
+    }
+    
+    func getRepository(at index: Int) -> Repository {
+        getVisibleResults()[index]
     }
     
     func selectSortMethod(_ sortMethod: SortMethod) {
@@ -50,47 +90,5 @@ class RepoListPresenterImpl: RepoListPresenter {
             selectedOrder = order
             repeatLastSearch()
         }
-    }
-    
-    private func repeatLastSearch() {
-        if let searchQuery = lastSearchQuery {
-            performSearch(searchQuery)
-        }
-    }
-    
-    @discardableResult
-    func performSearch(_ searchQuery: String) -> Promise<Void> {
-        view.updateView(state: .loading)
-        
-        lastSearchQuery = searchQuery
-        
-        let promise = interactor.fetchRepoSearchResults(searchQuery,
-                                                        sort: selectedSortMethod,
-                                                        order: selectedOrder)
-        promise
-            .done { results in
-                if results.items.isEmpty {
-                    self.view.updateView(state: .doneEmpty)
-                } else {
-                    self.view.updateView(state: .doneResults)
-                }
-            }
-            .catch { error in
-                print(error)
-                self.view.updateView(state: .error)
-            }
-        return promise.asVoid()
-    }
-    
-    func getVisibleResults() -> [Repository] {
-        interactor.results?.items ?? []
-    }
-    
-    func getVisibleCount() -> Int {
-        getVisibleResults().count
-    }
-    
-    func getRepository(at index: Int) -> Repository {
-        getVisibleResults()[index]
     }
 }

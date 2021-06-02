@@ -24,11 +24,8 @@ class RepoListViewController: UIViewController {
     var collectionView: UICollectionView!
     var noResultsLabel: UILabel!
     var searchController: UISearchController!
-    var sortButton: UIBarButtonItem! {
-        didSet {
-            navigationItem.rightBarButtonItem = sortButton
-        }
-    }
+    var reloadButton: UIBarButtonItem!
+    var sortButton: UIBarButtonItem!
     
     var presenter: RepoListPresenter!
     
@@ -39,7 +36,7 @@ class RepoListViewController: UIViewController {
         
         configureViews()
         configureSearchController()
-        configureSortButton()
+        configureBarButtons()
         
         presenter.attachToView()
     }
@@ -69,13 +66,19 @@ class RepoListViewController: UIViewController {
         navigationItem.searchController = searchController
     }
     
-    private func configureSortButton() {
-        let sortImage = UIImage(systemName: "arrow.up.arrow.down")
-        let sortButton = UIBarButtonItem(title: nil,
-                                        image: sortImage,
-                                        primaryAction: nil,
-                                        menu: getSortMenu())
+    private func configureBarButtons() {
+        let reloadAction = UIAction { [weak self] _ in
+            self?.presenter.repeatLastSearch()
+        }
+        let reloadButton = UIBarButtonItem(image: UIImage(systemName: "arrow.triangle.2.circlepath"),
+                                           primaryAction: reloadAction)
+        let sortButton = UIBarButtonItem(image: UIImage(systemName: "arrow.up.arrow.down"),
+                                         menu: getSortMenu())
+        
+        self.reloadButton = reloadButton
         self.sortButton = sortButton
+        
+        navigationItem.rightBarButtonItems = [reloadButton, sortButton]
     }
     
     private func applySnapshot(animatingDifferences: Bool = true) {
@@ -93,6 +96,7 @@ extension RepoListViewController: RepoListView {
     
     func updateView(state: RepoListViewState) {
         LoadingSpinner.stop()
+        reloadButton.isEnabled = presenter.isReloadEnabled
         
         switch state {
         case .initial:
@@ -170,9 +174,9 @@ extension RepoListViewController {
                 self?.updateSortMenu()
             }
         }
+        let isSortBestMatch = presenter.selectedSortMethod == .bestMatch
         let orderActions = Order.allCases.map { order -> UIMenuElement in
             let isSelected = presenter.selectedOrder == order
-            let isSortBestMatch = presenter.selectedSortMethod == .bestMatch
             return UIAction(title: order.title,
                             attributes: isSortBestMatch ? .hidden : [],
                             state: isSelected ? .on : .off) { [weak self] _ in
