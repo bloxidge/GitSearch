@@ -44,7 +44,8 @@ class RepoListViewController: UIViewController {
     private func configureViews() {
         view.backgroundColor = .systemBackground
         
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout())
+        collectionView = UICollectionView(frame: .zero,
+                                          collectionViewLayout: createCompositionalLayout(for: view.bounds.size))
         collectionView.dataSource = dataSource
         collectionView.register(RepoListCollectionViewCell.self, forCellWithReuseIdentifier: "RepoListCell")
         collectionView.backgroundColor = .systemBackground
@@ -119,7 +120,7 @@ extension RepoListViewController: RepoListView {
 
 extension RepoListViewController {
     
-    private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
+    private func createCompositionalLayout(for size: CGSize) -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(1.0)
@@ -128,12 +129,13 @@ extension RepoListViewController {
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(80)
+            heightDimension: .absolute(160)
         )
+        let isPortrait = size.width < size.height
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
             subitem: item,
-            count: 1
+            count: isPortrait ? 1 : 2
         )
         let spacing: CGFloat = 8
         group.interItemSpacing = .fixed(spacing)
@@ -142,6 +144,15 @@ extension RepoListViewController {
         section.interGroupSpacing = spacing
         
         return UICollectionViewCompositionalLayout(section: section)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        coordinator.animate(alongsideTransition: { [weak self] context in
+            guard let self = self else { return }
+            self.collectionView.collectionViewLayout = self.createCompositionalLayout(for: size)
+        })
     }
 }
 
