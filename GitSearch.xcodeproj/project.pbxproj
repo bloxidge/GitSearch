@@ -35,6 +35,8 @@
 		FD425C822665B79E00AA1131 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C812665B79E00AA1131 /* Order.swift */; };
 		FD425C842666662500AA1131 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C832666662500AA1131 /* String+Utils.swift */; };
 		FD425C872666A2F600AA1131 /* RepoListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C862666A2F600AA1131 /* RepoListCollectionViewCell.swift */; };
+		FD425C8B2666DF7000AA1131 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C8A2666DF7000AA1131 /* UIView+Constraints.swift */; };
+		FD425C8E2666ED7C00AA1131 /* LoadingSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C8D2666ED7C00AA1131 /* LoadingSpinner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +80,8 @@
 		FD425C812665B79E00AA1131 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		FD425C832666662500AA1131 /* String+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
 		FD425C862666A2F600AA1131 /* RepoListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoListCollectionViewCell.swift; sourceTree = "<group>"; };
+		FD425C8A2666DF7000AA1131 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
+		FD425C8D2666ED7C00AA1131 /* LoadingSpinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingSpinner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +125,7 @@
 		FD425BB626653B0C00AA1131 /* GitSearch */ = {
 			isa = PBXGroup;
 			children = (
+				FD425C8C2666ECE600AA1131 /* Components */,
 				FD425BE826653CD300AA1131 /* Modules */,
 				FD425C1F26653CF700AA1131 /* Services */,
 				FD425C1626653CF700AA1131 /* Utilities */,
@@ -172,6 +177,7 @@
 			children = (
 				FD425C832666662500AA1131 /* String+Utils.swift */,
 				FD425C1C26653CF700AA1131 /* UIScrollView+refresh.swift */,
+				FD425C8A2666DF7000AA1131 /* UIView+Constraints.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -296,6 +302,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		FD425C8C2666ECE600AA1131 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				FD425C8D2666ED7C00AA1131 /* LoadingSpinner.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -418,6 +432,8 @@
 				FD425C70266557DC00AA1131 /* ApiService.swift in Sources */,
 				FD425C7D2665B62F00AA1131 /* GetSearchRepositoriesRequest.swift in Sources */,
 				FD425C872666A2F600AA1131 /* RepoListCollectionViewCell.swift in Sources */,
+				FD425C8B2666DF7000AA1131 /* UIView+Constraints.swift in Sources */,
+				FD425C8E2666ED7C00AA1131 /* LoadingSpinner.swift in Sources */,
 				FD425C7F2665B72D00AA1131 /* SortMethod.swift in Sources */,
 				FD425BB826653B0C00AA1131 /* AppDelegate.swift in Sources */,
 				FD425C72266557DC00AA1131 /* HttpMethod.swift in Sources */,

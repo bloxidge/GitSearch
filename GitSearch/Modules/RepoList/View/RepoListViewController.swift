@@ -61,11 +61,13 @@ class RepoListViewController: UICollectionViewController {
 extension RepoListViewController: RepoListView {
     
     func updateView(state: RepoListViewState) {
+        LoadingSpinner.stop()
+        
         switch state {
         case .initial:
             break
         case .loading:
-            break
+            LoadingSpinner.start()
         case .doneResults:
             applySnapshot()
         case .doneEmpty:
