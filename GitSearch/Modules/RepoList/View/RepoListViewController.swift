@@ -37,12 +37,6 @@ class RepoListViewController: UIViewController {
         presenter.attachToView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        presenter.performSearch("Alamofire")
-    }
-    
     private func configureViews() {
         view.backgroundColor = .systemBackground
         
