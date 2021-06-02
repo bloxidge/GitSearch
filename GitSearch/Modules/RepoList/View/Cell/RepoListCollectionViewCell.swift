@@ -9,11 +9,7 @@ import UIKit
 
 class RepoListCollectionViewCell: UICollectionViewCell {
     
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let titleLabel = UILabel()
     
     var title: String? {
         get { titleLabel.text }
@@ -25,8 +21,8 @@ class RepoListCollectionViewCell: UICollectionViewCell {
         
         contentView.addSubview(titleLabel)
         
-        titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0).isActive = true
+        titleLabel.autoCenterYInSuperview()
+        titleLabel.autoPin(toSuperviewEdge: .leading, insetBy: 16.0)
     }
     
     required init?(coder: NSCoder) {
