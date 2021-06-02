@@ -33,6 +33,7 @@ class RepoListViewController: UICollectionViewController {
         super.viewDidLoad()
         
         title = "Repositories"
+        navigationController?.navigationBar.prefersLargeTitles = true
         
         configureViews()
         configureSearchController()
