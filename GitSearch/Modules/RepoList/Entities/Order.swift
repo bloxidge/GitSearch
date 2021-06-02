@@ -7,7 +7,14 @@
 
 import Foundation
 
-enum Order: String {
+enum Order: String, CaseIterable {
     case descending = "desc"
     case ascending = "asc"
+    
+    var title: String {
+        switch self {
+        case .descending: return "Descending"
+        case .ascending: return "Ascending"
+        }
+    }
 }

@@ -24,6 +24,11 @@ class RepoListViewController: UIViewController {
     var collectionView: UICollectionView!
     var noResultsLabel: UILabel!
     var searchController: UISearchController!
+    var sortButton: UIBarButtonItem! {
+        didSet {
+            navigationItem.rightBarButtonItem = sortButton
+        }
+    }
     
     var presenter: RepoListPresenter!
     
@@ -34,6 +39,7 @@ class RepoListViewController: UIViewController {
         
         configureViews()
         configureSearchController()
+        configureSortButton()
         
         presenter.attachToView()
     }
@@ -61,6 +67,15 @@ class RepoListViewController: UIViewController {
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = "Search Repositories"
         navigationItem.searchController = searchController
+    }
+    
+    private func configureSortButton() {
+        let sortImage = UIImage(systemName: "arrow.up.arrow.down")
+        let sortButton = UIBarButtonItem(title: nil,
+                                        image: sortImage,
+                                        primaryAction: nil,
+                                        menu: getSortMenu())
+        self.sortButton = sortButton
     }
     
     private func applySnapshot(animatingDifferences: Bool = true) {
@@ -126,6 +141,8 @@ extension RepoListViewController {
     }
 }
 
+// MARK: - Search
+
 extension RepoListViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -133,5 +150,36 @@ extension RepoListViewController: UISearchBarDelegate {
             presenter.performSearch(searchText)
             searchController.dismiss(animated: true)
         }
+    }
+}
+
+// MARK: - Sort
+
+extension RepoListViewController {
+    
+    private func updateSortMenu() {
+        sortButton.menu = getSortMenu()
+    }
+    
+    private func getSortMenu() -> UIMenu {
+        let sortActions = SortMethod.allCases.map { method -> UIMenuElement in
+            let isSelected = presenter.selectedSortMethod == method
+            return UIAction(title: method.title, state: isSelected ? .on : .off) { [weak self] _ in
+                self?.presenter.selectSortMethod(method)
+                self?.updateSortMenu()
+            }
+        }
+        let orderActions = Order.allCases.map { order -> UIMenuElement in
+            let isSelected = presenter.selectedOrder == order
+            return UIAction(title: order.title, state: isSelected ? .on : .off) { [weak self] _ in
+                self?.presenter.selectOrder(order)
+                self?.updateSortMenu()
+            }
+        }
+        
+        return UIMenu(title: "Sort", children: [
+            UIMenu(options: .displayInline, children: orderActions),
+            UIMenu(options: .displayInline, children: sortActions)
+        ])
     }
 }

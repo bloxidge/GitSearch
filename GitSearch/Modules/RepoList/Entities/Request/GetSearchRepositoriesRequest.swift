@@ -22,7 +22,7 @@ class GetSearchRepositoriesRequest: Request<RepositorySearchResults> {
     override var queryParameters: [String : String]? {
         return [
             "q" : searchQuery,
-            "sort" : sort?.rawValue,
+            "sort" : sort?.queryValue,
             "order" : order?.rawValue,
             "per_page" : String(perPage),
             "page" : String(page),
