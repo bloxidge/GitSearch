@@ -39,13 +39,17 @@ class RepoListPresenterImpl: RepoListPresenter {
     }
     
     func selectSortMethod(_ sortMethod: SortMethod) {
-        selectedSortMethod = sortMethod
-        repeatLastSearch()
+        if sortMethod != selectedSortMethod {
+            selectedSortMethod = sortMethod
+            repeatLastSearch()
+        }
     }
     
     func selectOrder(_ order: Order) {
-        selectedOrder = order
-        repeatLastSearch()
+        if order != selectedOrder {
+            selectedOrder = order
+            repeatLastSearch()
+        }
     }
     
     private func repeatLastSearch() {
