@@ -20,6 +20,9 @@ class RepoListViewController: UICollectionViewController {
             return cell
         }
     }()
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    
     var presenter: RepoListPresenter!
     
     convenience init() {
@@ -31,7 +34,8 @@ class RepoListViewController: UICollectionViewController {
         
         title = "Repositories"
         
-        setUpCollectionView()
+        configureViews()
+        configureSearchController()
         
         presenter.attachToView()
     }
@@ -42,9 +46,15 @@ class RepoListViewController: UICollectionViewController {
         presenter.performSearch("Alamofire")
     }
     
-    private func setUpCollectionView() {
+    private func configureViews() {
         collectionView.backgroundColor = .systemBackground
         collectionView.register(RepoListCollectionViewCell.self, forCellWithReuseIdentifier: "RepoListCell")
+    }
+    
+    private func configureSearchController() {
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "Search Repositories"
+        navigationItem.searchController = searchController
     }
     
     private func applySnapshot(animatingDifferences: Bool = true) {
@@ -105,5 +115,15 @@ extension RepoListViewController {
         section.interGroupSpacing = spacing
         
         return UICollectionViewCompositionalLayout(section: section)
+    }
+}
+
+extension RepoListViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if let searchText = searchBar.text, !searchText.isEmpty {
+            presenter.performSearch(searchText)
+            searchController.dismiss(animated: true)
+        }
     }
 }
