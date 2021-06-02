@@ -7,6 +7,23 @@
 
 import UIKit
 
+protocol Anchorable {
+    var leadingAnchor: NSLayoutXAxisAnchor { get }
+    var trailingAnchor: NSLayoutXAxisAnchor { get }
+    var leftAnchor: NSLayoutXAxisAnchor { get }
+    var rightAnchor: NSLayoutXAxisAnchor { get }
+    var topAnchor: NSLayoutYAxisAnchor { get }
+    var bottomAnchor: NSLayoutYAxisAnchor { get }
+    var widthAnchor: NSLayoutDimension { get }
+    var heightAnchor: NSLayoutDimension { get }
+    var centerXAnchor: NSLayoutXAxisAnchor { get }
+    var centerYAnchor: NSLayoutYAxisAnchor { get }
+}
+
+extension UILayoutGuide: Anchorable {}
+extension UIView: Anchorable {}
+
+
 extension UIView {
     
     enum ConstraintEdge {
@@ -15,29 +32,34 @@ extension UIView {
         case leading
         case trailing
     }
-
+    
     @discardableResult
     func autoPinToSuperview(insetBy insets: UIEdgeInsets = .zero, excludingEdges: [ConstraintEdge] = []) -> [NSLayoutConstraint] {
         return autoPin(toView: superview!, insetBy: insets, excludingEdges: excludingEdges)
     }
+    
+    @discardableResult
+    func autoPinToSafeArea(insetBy insets: UIEdgeInsets = .zero, excludingEdges: [ConstraintEdge] = []) -> [NSLayoutConstraint] {
+        return autoPin(toView: superview!.safeAreaLayoutGuide, insetBy: insets, excludingEdges: excludingEdges)
+    }
 
     @discardableResult
-    func autoPin(toView view: UIView, insetBy insets: UIEdgeInsets = .zero, excludingEdges: [ConstraintEdge] = []) -> [NSLayoutConstraint] {
+    func autoPin(toView viewOrLayoutGuide: Anchorable, insetBy insets: UIEdgeInsets = .zero, excludingEdges: [ConstraintEdge] = []) -> [NSLayoutConstraint] {
         self.translatesAutoresizingMaskIntoConstraints = false
 
         var constraints = [NSLayoutConstraint]()
         
         if !excludingEdges.contains(.top) {
-            constraints.append(topAnchor.constraint(equalTo: view.topAnchor, constant: insets.top))
+            constraints.append(topAnchor.constraint(equalTo: viewOrLayoutGuide.topAnchor, constant: insets.top))
         }
         if !excludingEdges.contains(.bottom) {
-            constraints.append(bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -insets.bottom))
+            constraints.append(bottomAnchor.constraint(equalTo: viewOrLayoutGuide.bottomAnchor, constant: -insets.bottom))
         }
         if !excludingEdges.contains(.leading) {
-            constraints.append(leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: insets.left))
+            constraints.append(leadingAnchor.constraint(equalTo: viewOrLayoutGuide.leadingAnchor, constant: insets.left))
         }
         if !excludingEdges.contains(.trailing) {
-            constraints.append(trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -insets.right))
+            constraints.append(trailingAnchor.constraint(equalTo: viewOrLayoutGuide.trailingAnchor, constant: -insets.right))
         }
         constraints.forEach { $0.isActive = true }
         
@@ -48,43 +70,27 @@ extension UIView {
     func autoPin(toSuperviewEdge edge: ConstraintEdge, insetBy inset: CGFloat = 0.0) -> NSLayoutConstraint {
         return autoPin(toView: superview!, edge: edge, insetBy: inset)
     }
-
+    
     @discardableResult
-    func autoPin(toView view: UIView, edge: ConstraintEdge, insetBy inset: CGFloat = 0.0) -> NSLayoutConstraint {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        
-        let constraint: NSLayoutConstraint
-        
-        switch edge {
-        case .top:
-            constraint = topAnchor.constraint(equalTo: view.topAnchor, constant: inset)
-        case .bottom:
-            constraint = bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -inset)
-        case .leading:
-            constraint = leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: inset)
-        case .trailing:
-            constraint = trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -inset)
-        }
-        constraint.isActive = true
-        
-        return constraint
+    func autoPin(toSafeAreaEdge edge: ConstraintEdge, insetBy inset: CGFloat = 0.0) -> NSLayoutConstraint {
+        return autoPin(toView: superview!.safeAreaLayoutGuide, edge: edge, insetBy: inset)
     }
 
     @discardableResult
-    func autoSpace(toView view: UIView, edge: ConstraintEdge, offsetBy offset: CGFloat = 0.0) -> NSLayoutConstraint {
+    func autoPin(toView viewOrLayoutGuide: Anchorable, edge: ConstraintEdge, insetBy inset: CGFloat = 0.0) -> NSLayoutConstraint {
         self.translatesAutoresizingMaskIntoConstraints = false
-
+        
         let constraint: NSLayoutConstraint
         
         switch edge {
         case .top:
-            constraint = bottomAnchor.constraint(equalTo: view.topAnchor, constant: -offset)
+            constraint = topAnchor.constraint(equalTo: viewOrLayoutGuide.topAnchor, constant: inset)
         case .bottom:
-            constraint = topAnchor.constraint(equalTo: view.bottomAnchor, constant: offset)
+            constraint = bottomAnchor.constraint(equalTo: viewOrLayoutGuide.bottomAnchor, constant: -inset)
         case .leading:
-            constraint = trailingAnchor.constraint(equalTo: view.leadingAnchor, constant: -offset)
+            constraint = leadingAnchor.constraint(equalTo: viewOrLayoutGuide.leadingAnchor, constant: inset)
         case .trailing:
-            constraint = leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: offset)
+            constraint = trailingAnchor.constraint(equalTo: viewOrLayoutGuide.trailingAnchor, constant: -inset)
         }
         constraint.isActive = true
         
@@ -95,22 +101,47 @@ extension UIView {
     func autoCenterInSuperview() -> [NSLayoutConstraint] {
         return [autoCenterXInSuperview(), autoCenterYInSuperview()]
     }
-
+    
     @discardableResult
     func autoCenterXInSuperview() -> NSLayoutConstraint {
+        return autoCenterX(in: superview!)
+    }
+
+    @discardableResult
+    func autoCenterYInSuperview() -> NSLayoutConstraint {
+        return autoCenterY(in: superview!)
+    }
+
+    @discardableResult
+    func autoCenterInSafeArea() -> [NSLayoutConstraint] {
+        return [autoCenterXInSafeArea(), autoCenterYInSafeArea()]
+    }
+
+    @discardableResult
+    func autoCenterXInSafeArea() -> NSLayoutConstraint {
+        return autoCenterX(in: superview!.safeAreaLayoutGuide)
+    }
+
+    @discardableResult
+    func autoCenterYInSafeArea() -> NSLayoutConstraint {
+        return autoCenterY(in: superview!.safeAreaLayoutGuide)
+    }
+    
+    @discardableResult
+    func autoCenterX(in viewOrLayoutGuide: Anchorable) -> NSLayoutConstraint {
         self.translatesAutoresizingMaskIntoConstraints = false
 
-        let centerXConstraint = centerXAnchor.constraint(equalTo: superview!.centerXAnchor)
+        let centerXConstraint = centerXAnchor.constraint(equalTo: viewOrLayoutGuide.centerXAnchor)
         centerXConstraint.isActive = true
         
         return centerXConstraint
     }
 
     @discardableResult
-    func autoCenterYInSuperview() -> NSLayoutConstraint {
+    func autoCenterY(in viewOrLayoutGuide: Anchorable) -> NSLayoutConstraint {
         self.translatesAutoresizingMaskIntoConstraints = false
 
-        let centerYConstraint = centerYAnchor.constraint(equalTo: superview!.centerYAnchor)
+        let centerYConstraint = centerYAnchor.constraint(equalTo: viewOrLayoutGuide.centerYAnchor)
         centerYConstraint.isActive = true
         
         return centerYConstraint
