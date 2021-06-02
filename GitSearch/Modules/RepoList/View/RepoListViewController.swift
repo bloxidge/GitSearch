@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RepoListViewController: UICollectionViewController {
+class RepoListViewController: UIViewController {
     
     typealias DataSource = UICollectionViewDiffableDataSource<Int, Repository>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Repository>
@@ -21,19 +21,15 @@ class RepoListViewController: UICollectionViewController {
         }
     }()
     
-    let searchController = UISearchController(searchResultsController: nil)
+    var collectionView: UICollectionView!
+    var searchController: UISearchController!
     
     var presenter: RepoListPresenter!
-    
-    convenience init() {
-        self.init(collectionViewLayout: Self.createCompositionalLayout())
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Repositories"
-        navigationController?.navigationBar.prefersLargeTitles = true
         
         configureViews()
         configureSearchController()
@@ -48,11 +44,18 @@ class RepoListViewController: UICollectionViewController {
     }
     
     private func configureViews() {
-        collectionView.backgroundColor = .systemBackground
+        view.backgroundColor = .systemBackground
+        
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout())
+        collectionView.dataSource = dataSource
         collectionView.register(RepoListCollectionViewCell.self, forCellWithReuseIdentifier: "RepoListCell")
+        collectionView.backgroundColor = .systemBackground
+        view.addSubview(collectionView)
+        collectionView.autoPinToSuperview()
     }
     
     private func configureSearchController() {
+        searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = "Search Repositories"
         navigationItem.searchController = searchController
@@ -89,11 +92,11 @@ extension RepoListViewController: RepoListView {
     }
 }
 
-// MARK: - UICollectionViewCompositionalLayout
+// MARK: - Layout
 
 extension RepoListViewController {
     
-    static func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
+    private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(1.0)
