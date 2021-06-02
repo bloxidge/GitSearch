@@ -22,6 +22,7 @@ class RepoListViewController: UIViewController {
     }()
     
     var collectionView: UICollectionView!
+    var noResultsLabel: UILabel!
     var searchController: UISearchController!
     
     var presenter: RepoListPresenter!
@@ -46,6 +47,13 @@ class RepoListViewController: UIViewController {
         collectionView.backgroundColor = .systemBackground
         view.addSubview(collectionView)
         collectionView.autoPinToSuperview()
+        
+        noResultsLabel = UILabel()
+        noResultsLabel.text = "No results found"
+        noResultsLabel.textColor = .secondaryLabel
+        noResultsLabel.font = .boldSystemFont(ofSize: 16.0)
+        view.addSubview(noResultsLabel)
+        noResultsLabel.autoCenterInSuperview()
     }
     
     private func configureSearchController() {
@@ -73,13 +81,15 @@ extension RepoListViewController: RepoListView {
         
         switch state {
         case .initial:
-            break
+            noResultsLabel.isHidden = true
         case .loading:
             LoadingSpinner.start()
         case .doneResults:
+            noResultsLabel.isHidden = true
             applySnapshot()
         case .doneEmpty:
-            break
+            noResultsLabel.isHidden = false
+            applySnapshot(animatingDifferences: false)
         case .error:
             break
         }
