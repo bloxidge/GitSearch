@@ -54,9 +54,9 @@ class RepoListCollectionViewCell: UICollectionViewCell {
         backgroundColor = .systemBackground
         
         cornerRadius = 16
-        shadowRadius = 4
+        shadowRadius = 8
         shadowColor = .secondarySystemFill
-        shadowOpacity = 0.8
+        shadowOpacity = 1
         shadowOffset = .init(x: 0, y: 0)
         
         titleLabel = UILabel()
@@ -84,7 +84,9 @@ class RepoListCollectionViewCell: UICollectionViewCell {
         
         contentView.addSubview(mainStack)
         
-        mainStack.autoPinToSuperview(insetBy: UIEdgeInsets(top: 16, left: 20, bottom: 16, right: 8))
+        mainStack.autoCenterYInSuperview()
+        mainStack.autoPin(toSuperviewEdge: .leading, insetBy: 20)
+        mainStack.autoPin(toSuperviewEdge: .trailing, insetBy: 8)
     }
     
     override func prepareForReuse() {
