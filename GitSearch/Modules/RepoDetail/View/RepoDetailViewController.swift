@@ -15,6 +15,7 @@ class RepoDetailViewController: UIViewController {
     var iconImageView: UIImageView!
     var starsLabel: IconLabel!
     var forksLabel: IconLabel!
+    var lastUpdatedLabel: UILabel!
 
     var presenter: RepoDetailPresenter!
     
@@ -83,22 +84,27 @@ class RepoDetailViewController: UIViewController {
         starsLabel = IconLabel()
         starsLabel.font = .systemFont(ofSize: 16)
         starsLabel.icon = UIImage(named: "star-24")
-        starsLabel.text = "12.3k stars"
         
         forksLabel = IconLabel()
         forksLabel.font = .systemFont(ofSize: 16)
         forksLabel.icon = UIImage(named: "repo-forked-24")
-        forksLabel.text = "4.5k forks"
         
-        let infoStack = UIStackView(arrangedSubviews: [starsLabel, forksLabel])
-        infoStack.spacing = 24
-        infoStack.alignment = .leading
+        lastUpdatedLabel = UILabel()
+        lastUpdatedLabel.font = .italicSystemFont(ofSize: 16)
         
-        view.addSubview(infoStack)
+        let starsForksStack = UIStackView(arrangedSubviews: [starsLabel, forksLabel])
+        starsForksStack.spacing = 24
         
-        infoStack.autoCenterXInSafeArea()
-        infoStack.autoPin(toSafeAreaEdge: .leading, insetBy: 16)
-        infoStack.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 8).isActive = true//(equalTo: viewOrLayoutGuide.topAnchor, constant: inset)
+        let infoLabelsStack = UIStackView(arrangedSubviews: [starsForksStack, lastUpdatedLabel])
+        infoLabelsStack.spacing = 8
+        infoLabelsStack.axis = .vertical
+        infoLabelsStack.alignment = .leading
+        
+        view.addSubview(infoLabelsStack)
+        
+        infoLabelsStack.autoCenterXInSafeArea()
+        infoLabelsStack.autoPin(toSafeAreaEdge: .leading, insetBy: 16)
+        infoLabelsStack.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 8).isActive = true//(equalTo: viewOrLayoutGuide.topAnchor, constant: inset)
     }
     
     private func closeButtonActionHandler(_ action: UIAction) {
@@ -128,6 +134,7 @@ extension RepoDetailViewController: RepoDetailView {
             
             starsLabel.text = "\(repository.stargazersCount.metricString) stars"
             forksLabel.text = "\(repository.forksCount.metricString) forks"
+            lastUpdatedLabel.text = "Updated \(repository.updatedAt.timeAgo)"
         }
     }
 }

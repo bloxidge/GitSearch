@@ -47,6 +47,8 @@
 		FD425CA62668573C00AA1131 /* RepoDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425CA02668573C00AA1131 /* RepoDetailRouter.swift */; };
 		FD425CA82669622700AA1131 /* IconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425CA72669622700AA1131 /* IconLabel.swift */; };
 		FD4AA9F826698A3B00A34D38 /* Int+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4AA9F726698A3B00A34D38 /* Int+Utils.swift */; };
+		FD4AA9FA266990BC00A34D38 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4AA9F9266990BC00A34D38 /* Date+Utils.swift */; };
+		FD4AA9FC266991AA00A34D38 /* TimeInterval+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4AA9FB266991AA00A34D38 /* TimeInterval+Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +103,8 @@
 		FD425CA02668573C00AA1131 /* RepoDetailRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDetailRouter.swift; sourceTree = "<group>"; };
 		FD425CA72669622700AA1131 /* IconLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabel.swift; sourceTree = "<group>"; };
 		FD4AA9F726698A3B00A34D38 /* Int+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Utils.swift"; sourceTree = "<group>"; };
+		FD4AA9F9266990BC00A34D38 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
+		FD4AA9FB266991AA00A34D38 /* TimeInterval+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Utils.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +204,8 @@
 				FD425C1C26653CF700AA1131 /* UIScrollView+refresh.swift */,
 				FD425C8A2666DF7000AA1131 /* UIView+Constraints.swift */,
 				FD4AA9F726698A3B00A34D38 /* Int+Utils.swift */,
+				FD4AA9F9266990BC00A34D38 /* Date+Utils.swift */,
+				FD4AA9FB266991AA00A34D38 /* TimeInterval+Utils.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -501,6 +507,7 @@
 				FD425C62266554CA00AA1131 /* RepoListViewController.swift in Sources */,
 				FD425C5F266554CA00AA1131 /* RepoListModule.swift in Sources */,
 				FD425CA12668573C00AA1131 /* RepoDetailPresenter.swift in Sources */,
+				FD4AA9FA266990BC00A34D38 /* Date+Utils.swift in Sources */,
 				FD425C61266554CA00AA1131 /* RepoListView.swift in Sources */,
 				FD425C75266557DC00AA1131 /* URLRequestBuilder.swift in Sources */,
 				FD4AA9F826698A3B00A34D38 /* Int+Utils.swift in Sources */,
@@ -522,6 +529,7 @@
 				FD425C7F2665B72D00AA1131 /* SortMethod.swift in Sources */,
 				FD425BB826653B0C00AA1131 /* AppDelegate.swift in Sources */,
 				FD425CA22668573C00AA1131 /* RepoDetailView.swift in Sources */,
+				FD4AA9FC266991AA00A34D38 /* TimeInterval+Utils.swift in Sources */,
 				FD425C902667B92F00AA1131 /* RootNavigationController.swift in Sources */,
 				FD425C72266557DC00AA1131 /* HttpMethod.swift in Sources */,
 				FD425C782665955C00AA1131 /* Repository.swift in Sources */,
@@ -614,7 +622,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -669,7 +677,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -685,6 +693,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9XT7VKS6C2;
 				INFOPLIST_FILE = "GitSearch/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -703,6 +712,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9XT7VKS6C2;
 				INFOPLIST_FILE = "GitSearch/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
