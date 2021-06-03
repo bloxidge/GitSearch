@@ -17,24 +17,23 @@ class ApiServiceImpl: ApiService {
     
     let requestBuilder: URLRequestBuilder
     let urlSession: URLSession
-    let decoder: JSONDecoder
+    
+    private let config = ApiConfig()
     
     init(requestBuilder: URLRequestBuilder,
-         urlSession: URLSession = .shared,
-         decoder: JSONDecoder = JSONDecoder()) {
+         urlSession: URLSession = .shared) {
         self.requestBuilder = requestBuilder
         self.urlSession = urlSession
-        self.decoder = decoder
     }
     
     func send<ResponseType>(request: Request<ResponseType>) -> Promise<ResponseType> where ResponseType : Decodable {
         firstly { () -> Promise<(data: Data, response: URLResponse)> in
-            let urlRequest = try requestBuilder.build(from: request, baseUrl: ApiConfig.baseUrl)
+            let urlRequest = try requestBuilder.build(from: request, baseUrl: config.baseUrl)
             return urlSession.dataTask(.promise, with: urlRequest)
         }
         .validate()
         .map { (data, _) in
-            try self.decoder.decode(ResponseType.self, from: data)
+            try self.config.decoder.decode(ResponseType.self, from: data)
         }
     }
 }
