@@ -9,6 +9,7 @@ import Foundation
 
 protocol RepoDetailPresenter {
     func attachToView()
+    func didPressClose()
 }
 
 class RepoDetailPresenterImpl: RepoDetailPresenter {
@@ -25,5 +26,9 @@ class RepoDetailPresenterImpl: RepoDetailPresenter {
     
     func attachToView() {
         view.updateView(state: .initial(repository))
+    }
+    
+    func didPressClose() {
+        router.dismissDetail()
     }
 }
