@@ -133,28 +133,39 @@ extension RepoListViewController: RepoListView {
 extension RepoListViewController {
     
     private func createCompositionalLayout(for size: CGSize) -> UICollectionViewCompositionalLayout {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalHeight(1.0)
-        )
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        func getCountPerRow(portrait: Bool, isPad: Bool) -> Int {
+            switch (portrait, isPad) {
+            case (true, false): return 1
+            case (false, false), (true, true): return 2
+            case (false, true): return 3
+            }
+        }
         
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(Constants.cellHeight)
-        )
-        let isPortrait = size.width < size.height
-        let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: groupSize,
-            subitem: item,
-            count: isPortrait ? 1 : 2
-        )
-        group.interItemSpacing = .fixed(Constants.spacing)
+        return UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
+            let itemSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalHeight(1.0)
+            )
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .absolute(Constants.cellHeight)
+            )
+            let itemCount = getCountPerRow(portrait: size.width < size.height,
+                                           isPad: layoutEnvironment.traitCollection.userInterfaceIdiom == .pad)
+            let group = NSCollectionLayoutGroup.horizontal(
+                layoutSize: groupSize,
+                subitem: item,
+                count: itemCount
+            )
+            group.interItemSpacing = .fixed(Constants.spacing)
+            
+            let section = NSCollectionLayoutSection(group: group)
+            section.interGroupSpacing = Constants.spacing
         
-        let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = Constants.spacing
-        
-        return UICollectionViewCompositionalLayout(section: section)
+            return section
+        }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
