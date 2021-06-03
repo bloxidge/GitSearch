@@ -29,6 +29,15 @@ class RepoListCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    override var isHighlighted: Bool {
+        didSet {
+            let color: UIColor = isHighlighted ? .tertiarySystemFill : .systemBackground
+            UIView.animate(withDuration: 0.1) {
+                self.backgroundColor = color
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         construct()
