@@ -18,6 +18,6 @@ class RepoListRouterImpl: RepoListRouter {
     func showDetail(for repository: Repository) {
         let detailViewController = RepoDetailModule.build(repository: repository)
         detailViewController.modalPresentationStyle = .formSheet
-        viewController?.present(detailViewController, animated: true)//(detailViewController, sender: viewController)
+        viewController?.present(detailViewController, animated: true)
     }
 }

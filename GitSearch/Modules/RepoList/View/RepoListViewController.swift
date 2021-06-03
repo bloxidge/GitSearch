@@ -108,14 +108,14 @@ class RepoListViewController: UIViewController {
 extension RepoListViewController: RepoListView {
     
     func updateView(state: RepoListViewState) {
-        LoadingSpinner.stop()
+        hideLoadingSpinner()
         reloadButton.isEnabled = presenter.isReloadEnabled
         
         switch state {
         case .initial:
             noResultsLabel.isHidden = true
         case .loading:
-            LoadingSpinner.start()
+            showLoadingSpinner()
         case .doneResults:
             noResultsLabel.isHidden = true
             applySnapshot()
