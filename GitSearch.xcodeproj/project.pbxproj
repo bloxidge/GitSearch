@@ -45,6 +45,8 @@
 		FD425CA42668573C00AA1131 /* RepoDetailModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C9C2668573C00AA1131 /* RepoDetailModule.swift */; };
 		FD425CA52668573C00AA1131 /* RepoDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C9E2668573C00AA1131 /* RepoDetailInteractor.swift */; };
 		FD425CA62668573C00AA1131 /* RepoDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425CA02668573C00AA1131 /* RepoDetailRouter.swift */; };
+		FD425CA82669622700AA1131 /* IconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425CA72669622700AA1131 /* IconLabel.swift */; };
+		FD4AA9F826698A3B00A34D38 /* Int+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4AA9F726698A3B00A34D38 /* Int+Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +99,8 @@
 		FD425C9C2668573C00AA1131 /* RepoDetailModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDetailModule.swift; sourceTree = "<group>"; };
 		FD425C9E2668573C00AA1131 /* RepoDetailInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDetailInteractor.swift; sourceTree = "<group>"; };
 		FD425CA02668573C00AA1131 /* RepoDetailRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDetailRouter.swift; sourceTree = "<group>"; };
+		FD425CA72669622700AA1131 /* IconLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabel.swift; sourceTree = "<group>"; };
+		FD4AA9F726698A3B00A34D38 /* Int+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Utils.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +199,7 @@
 				FD425C832666662500AA1131 /* String+Utils.swift */,
 				FD425C1C26653CF700AA1131 /* UIScrollView+refresh.swift */,
 				FD425C8A2666DF7000AA1131 /* UIView+Constraints.swift */,
+				FD4AA9F726698A3B00A34D38 /* Int+Utils.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -239,7 +244,7 @@
 		FD425C58266554CA00AA1131 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				FD425C852666A24000AA1131 /* Cell */,
+				FD425C852666A24000AA1131 /* Components */,
 				FD425C59266554CA00AA1131 /* RepoListView.swift */,
 				FD425C5A266554CA00AA1131 /* RepoListViewController.swift */,
 			);
@@ -311,12 +316,12 @@
 			path = Request;
 			sourceTree = "<group>";
 		};
-		FD425C852666A24000AA1131 /* Cell */ = {
+		FD425C852666A24000AA1131 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				FD425C862666A2F600AA1131 /* RepoListCollectionViewCell.swift */,
 			);
-			path = Cell;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		FD425C8C2666ECE600AA1131 /* Common */ = {
@@ -351,6 +356,7 @@
 		FD425C992668573C00AA1131 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FD425CA92669623900AA1131 /* Components */,
 				FD425C9A2668573C00AA1131 /* RepoDetailView.swift */,
 				FD425C9B2668573C00AA1131 /* RepoDetailViewController.swift */,
 			);
@@ -371,6 +377,14 @@
 				FD425CA02668573C00AA1131 /* RepoDetailRouter.swift */,
 			);
 			path = Router;
+			sourceTree = "<group>";
+		};
+		FD425CA92669623900AA1131 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				FD425CA72669622700AA1131 /* IconLabel.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -489,6 +503,7 @@
 				FD425CA12668573C00AA1131 /* RepoDetailPresenter.swift in Sources */,
 				FD425C61266554CA00AA1131 /* RepoListView.swift in Sources */,
 				FD425C75266557DC00AA1131 /* URLRequestBuilder.swift in Sources */,
+				FD4AA9F826698A3B00A34D38 /* Int+Utils.swift in Sources */,
 				FD425C7B266595C700AA1131 /* RepositorySearchResults.swift in Sources */,
 				FD425C3426653CF700AA1131 /* UIScrollView+refresh.swift in Sources */,
 				FD425C822665B79E00AA1131 /* Order.swift in Sources */,
@@ -499,6 +514,7 @@
 				FD425C70266557DC00AA1131 /* ApiService.swift in Sources */,
 				FD425CA42668573C00AA1131 /* RepoDetailModule.swift in Sources */,
 				FD425C7D2665B62F00AA1131 /* GetSearchRepositoriesRequest.swift in Sources */,
+				FD425CA82669622700AA1131 /* IconLabel.swift in Sources */,
 				FD425CA32668573C00AA1131 /* RepoDetailViewController.swift in Sources */,
 				FD425C872666A2F600AA1131 /* RepoListCollectionViewCell.swift in Sources */,
 				FD425C8B2666DF7000AA1131 /* UIView+Constraints.swift in Sources */,

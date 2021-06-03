@@ -9,21 +9,25 @@ import UIKit
 
 class RepoDetailViewController: UIViewController {
     
+    var headerView: UIView!
     var titleLabel: UILabel!
     var descriptionLabel: UILabel!
     var iconImageView: UIImageView!
+    var starsLabel: IconLabel!
+    var forksLabel: IconLabel!
 
     var presenter: RepoDetailPresenter!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureViews()
+        configureHeaderView()
+        configureMainView()
         
         presenter.attachToView()
     }
     
-    private func configureViews() {
+    private func configureHeaderView() {
         view.backgroundColor = .systemBackground
         
         titleLabel = UILabel()
@@ -63,7 +67,7 @@ class RepoDetailViewController: UIViewController {
         headerStack.axis = .vertical
         headerStack.spacing = 8
         
-        let headerView = UIView()
+        headerView = UIView()
         headerView.backgroundColor = UIColor(named: "AccentColor")?.withAlphaComponent(0.6)
         headerView.addSubview(headerStack)
         
@@ -73,6 +77,28 @@ class RepoDetailViewController: UIViewController {
         headerStack.autoPin(toSafeAreaEdge: .leading, insetBy: 16)
         headerStack.autoPinToSafeArea(insetBy: UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16))
         headerView.autoPinToSuperview(excludingEdges: [.bottom])
+    }
+    
+    private func configureMainView() {
+        starsLabel = IconLabel()
+        starsLabel.font = .systemFont(ofSize: 16)
+        starsLabel.icon = UIImage(named: "star-24")
+        starsLabel.text = "12.3k stars"
+        
+        forksLabel = IconLabel()
+        forksLabel.font = .systemFont(ofSize: 16)
+        forksLabel.icon = UIImage(named: "repo-forked-24")
+        forksLabel.text = "4.5k forks"
+        
+        let infoStack = UIStackView(arrangedSubviews: [starsLabel, forksLabel])
+        infoStack.spacing = 24
+        infoStack.alignment = .leading
+        
+        view.addSubview(infoStack)
+        
+        infoStack.autoCenterXInSafeArea()
+        infoStack.autoPin(toSafeAreaEdge: .leading, insetBy: 16)
+        infoStack.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 8).isActive = true//(equalTo: viewOrLayoutGuide.topAnchor, constant: inset)
     }
     
     private func closeButtonActionHandler(_ action: UIAction) {
@@ -99,6 +125,9 @@ extension RepoDetailViewController: RepoDetailView {
             } else {
                 iconImageView.isHidden = true
             }
+            
+            starsLabel.text = "\(repository.stargazersCount.metricString) stars"
+            forksLabel.text = "\(repository.forksCount.metricString) forks"
         }
     }
 }
