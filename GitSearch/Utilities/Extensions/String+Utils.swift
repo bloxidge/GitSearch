@@ -16,3 +16,11 @@ extension String {
         self.init(value)
     }
 }
+
+extension URL {
+    /// Creates a URL instance from the provided optional string.
+    init?(string: String?) {
+        guard let string = string else { return nil }
+        self.init(string: string)
+    }
+}

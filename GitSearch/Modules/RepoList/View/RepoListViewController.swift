@@ -9,6 +9,11 @@ import UIKit
 
 class RepoListViewController: UIViewController {
     
+    struct Constants {
+        static let spacing: CGFloat = 16
+        static let cellHeight: CGFloat = 80
+    }
+    
     typealias DataSource = UICollectionViewDiffableDataSource<Int, Repository>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Repository>
     
@@ -16,7 +21,9 @@ class RepoListViewController: UIViewController {
         DataSource(collectionView: collectionView) { collectionView, indexPath, repository in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RepoListCell",
                                                           for: indexPath) as? RepoListCollectionViewCell
-            cell?.title = repository.fullName
+            cell?.title = repository.name
+            cell?.author = repository.owner?.login
+            cell?.avatarUrl = URL(string: repository.owner?.avatarUrl)
             return cell
         }
     }()
@@ -49,8 +56,12 @@ class RepoListViewController: UIViewController {
         collectionView.dataSource = dataSource
         collectionView.register(RepoListCollectionViewCell.self, forCellWithReuseIdentifier: "RepoListCell")
         collectionView.backgroundColor = .systemBackground
+        collectionView.clipsToBounds = false
         view.addSubview(collectionView)
-        collectionView.autoPinToSuperview()
+        collectionView.autoPinToSuperview(insetBy: UIEdgeInsets(top: 0,
+                                                                left: Constants.spacing,
+                                                                bottom: 0,
+                                                                right: Constants.spacing))
         
         noResultsLabel = UILabel()
         noResultsLabel.text = "No results found"
@@ -129,7 +140,7 @@ extension RepoListViewController {
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(160)
+            heightDimension: .absolute(Constants.cellHeight)
         )
         let isPortrait = size.width < size.height
         let group = NSCollectionLayoutGroup.horizontal(
@@ -137,8 +148,7 @@ extension RepoListViewController {
             subitem: item,
             count: isPortrait ? 1 : 2
         )
-        let spacing: CGFloat = 8
-        group.interItemSpacing = .fixed(spacing)
+        group.interItemSpacing = .fixed(Constants.spacing)
         
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = spacing
