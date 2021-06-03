@@ -8,7 +8,7 @@
 import Foundation
 
 enum RepoDetailViewState: Equatable {
-    case initial
+    case initial(Repository)
 }
 
 protocol RepoDetailView: AnyObject {

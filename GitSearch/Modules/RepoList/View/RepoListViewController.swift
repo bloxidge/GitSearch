@@ -54,6 +54,7 @@ class RepoListViewController: UIViewController {
         collectionView = UICollectionView(frame: .zero,
                                           collectionViewLayout: createCompositionalLayout(for: view.bounds.size))
         collectionView.dataSource = dataSource
+        collectionView.delegate = self
         collectionView.register(RepoListCollectionViewCell.self, forCellWithReuseIdentifier: "RepoListCell")
         collectionView.backgroundColor = .systemBackground
         collectionView.clipsToBounds = false
@@ -151,7 +152,7 @@ extension RepoListViewController {
         group.interItemSpacing = .fixed(Constants.spacing)
         
         let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = spacing
+        section.interGroupSpacing = Constants.spacing
         
         return UICollectionViewCompositionalLayout(section: section)
     }
@@ -210,5 +211,15 @@ extension RepoListViewController {
             UIMenu(options: .displayInline, children: sortActions),
             UIMenu(options: .displayInline, children: orderActions)
         ])
+    }
+}
+
+// MARK: - Sort
+
+extension RepoListViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedRepository = presenter.getRepository(at: indexPath.item)
+        presenter.didSelect(repository: selectedRepository)
     }
 }

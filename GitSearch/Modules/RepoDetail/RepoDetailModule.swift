@@ -9,10 +9,10 @@ import UIKit
 
 class RepoDetailModule {
     
-    static func build() -> UIViewController {
+    static func build(repository: Repository) -> UIViewController {
         let view = RepoDetailViewController()
         let interactor = RepoDetailInteractorImpl()
-        let presenter = RepoDetailPresenterImpl()
+        let presenter = RepoDetailPresenterImpl(repository: repository)
         let router = RepoDetailRouterImpl()
         
         view.presenter = presenter

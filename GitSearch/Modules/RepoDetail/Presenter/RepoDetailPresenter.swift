@@ -17,7 +17,13 @@ class RepoDetailPresenterImpl: RepoDetailPresenter {
     var interactor: RepoDetailInteractor!
     var router: RepoDetailRouter!
     
+    let repository: Repository
+    
+    init(repository: Repository) {
+        self.repository = repository
+    }
+    
     func attachToView() {
-        view.updateView(state: .initial)
+        view.updateView(state: .initial(repository))
     }
 }
