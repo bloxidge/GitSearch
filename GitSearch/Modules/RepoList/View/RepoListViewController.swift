@@ -54,6 +54,7 @@ class RepoListViewController: UIViewController {
         collectionView = UICollectionView(frame: .zero,
                                           collectionViewLayout: createCompositionalLayout(for: view.bounds.size))
         collectionView.dataSource = dataSource
+        collectionView.delegate = self
         collectionView.register(RepoListCollectionViewCell.self, forCellWithReuseIdentifier: "RepoListCell")
         collectionView.backgroundColor = .systemBackground
         collectionView.clipsToBounds = false
@@ -107,14 +108,14 @@ class RepoListViewController: UIViewController {
 extension RepoListViewController: RepoListView {
     
     func updateView(state: RepoListViewState) {
-        LoadingSpinner.stop()
+        hideLoadingSpinner()
         reloadButton.isEnabled = presenter.isReloadEnabled
         
         switch state {
         case .initial:
             noResultsLabel.isHidden = true
         case .loading:
-            LoadingSpinner.start()
+            showLoadingSpinner()
         case .doneResults:
             noResultsLabel.isHidden = true
             applySnapshot()
@@ -132,28 +133,39 @@ extension RepoListViewController: RepoListView {
 extension RepoListViewController {
     
     private func createCompositionalLayout(for size: CGSize) -> UICollectionViewCompositionalLayout {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalHeight(1.0)
-        )
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        func getCountPerRow(portrait: Bool, isPad: Bool) -> Int {
+            switch (portrait, isPad) {
+            case (true, false): return 1
+            case (false, false), (true, true): return 2
+            case (false, true): return 3
+            }
+        }
         
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(Constants.cellHeight)
-        )
-        let isPortrait = size.width < size.height
-        let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: groupSize,
-            subitem: item,
-            count: isPortrait ? 1 : 2
-        )
-        group.interItemSpacing = .fixed(Constants.spacing)
+        return UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
+            let itemSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalHeight(1.0)
+            )
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .absolute(Constants.cellHeight)
+            )
+            let itemCount = getCountPerRow(portrait: size.width < size.height,
+                                           isPad: layoutEnvironment.traitCollection.userInterfaceIdiom == .pad)
+            let group = NSCollectionLayoutGroup.horizontal(
+                layoutSize: groupSize,
+                subitem: item,
+                count: itemCount
+            )
+            group.interItemSpacing = .fixed(Constants.spacing)
+            
+            let section = NSCollectionLayoutSection(group: group)
+            section.interGroupSpacing = Constants.spacing
         
-        let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = spacing
-        
-        return UICollectionViewCompositionalLayout(section: section)
+            return section
+        }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -210,5 +222,15 @@ extension RepoListViewController {
             UIMenu(options: .displayInline, children: sortActions),
             UIMenu(options: .displayInline, children: orderActions)
         ])
+    }
+}
+
+// MARK: - Sort
+
+extension RepoListViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedRepository = presenter.getRepository(at: indexPath.item)
+        presenter.didSelect(repository: selectedRepository)
     }
 }

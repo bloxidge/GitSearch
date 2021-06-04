@@ -39,6 +39,16 @@
 		FD425C8E2666ED7C00AA1131 /* LoadingSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C8D2666ED7C00AA1131 /* LoadingSpinner.swift */; };
 		FD425C902667B92F00AA1131 /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C8F2667B92E00AA1131 /* RootNavigationController.swift */; };
 		FD425C9526683C0800AA1131 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FD425C9426683C0800AA1131 /* Kingfisher */; };
+		FD425CA12668573C00AA1131 /* RepoDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C982668573C00AA1131 /* RepoDetailPresenter.swift */; };
+		FD425CA22668573C00AA1131 /* RepoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C9A2668573C00AA1131 /* RepoDetailView.swift */; };
+		FD425CA32668573C00AA1131 /* RepoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C9B2668573C00AA1131 /* RepoDetailViewController.swift */; };
+		FD425CA42668573C00AA1131 /* RepoDetailModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C9C2668573C00AA1131 /* RepoDetailModule.swift */; };
+		FD425CA52668573C00AA1131 /* RepoDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C9E2668573C00AA1131 /* RepoDetailInteractor.swift */; };
+		FD425CA62668573C00AA1131 /* RepoDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425CA02668573C00AA1131 /* RepoDetailRouter.swift */; };
+		FD425CA82669622700AA1131 /* IconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425CA72669622700AA1131 /* IconLabel.swift */; };
+		FD4AA9F826698A3B00A34D38 /* Int+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4AA9F726698A3B00A34D38 /* Int+Utils.swift */; };
+		FD4AA9FA266990BC00A34D38 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4AA9F9266990BC00A34D38 /* Date+Utils.swift */; };
+		FD4AA9FC266991AA00A34D38 /* TimeInterval+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4AA9FB266991AA00A34D38 /* TimeInterval+Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +95,16 @@
 		FD425C8A2666DF7000AA1131 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		FD425C8D2666ED7C00AA1131 /* LoadingSpinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingSpinner.swift; sourceTree = "<group>"; };
 		FD425C8F2667B92E00AA1131 /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
+		FD425C982668573C00AA1131 /* RepoDetailPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDetailPresenter.swift; sourceTree = "<group>"; };
+		FD425C9A2668573C00AA1131 /* RepoDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDetailView.swift; sourceTree = "<group>"; };
+		FD425C9B2668573C00AA1131 /* RepoDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDetailViewController.swift; sourceTree = "<group>"; };
+		FD425C9C2668573C00AA1131 /* RepoDetailModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDetailModule.swift; sourceTree = "<group>"; };
+		FD425C9E2668573C00AA1131 /* RepoDetailInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDetailInteractor.swift; sourceTree = "<group>"; };
+		FD425CA02668573C00AA1131 /* RepoDetailRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDetailRouter.swift; sourceTree = "<group>"; };
+		FD425CA72669622700AA1131 /* IconLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabel.swift; sourceTree = "<group>"; };
+		FD4AA9F726698A3B00A34D38 /* Int+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Utils.swift"; sourceTree = "<group>"; };
+		FD4AA9F9266990BC00A34D38 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
+		FD4AA9FB266991AA00A34D38 /* TimeInterval+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Utils.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				FD425C54266554CA00AA1131 /* RepoList */,
+				FD425C962668573C00AA1131 /* RepoDetail */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -182,6 +203,9 @@
 				FD425C832666662500AA1131 /* String+Utils.swift */,
 				FD425C1C26653CF700AA1131 /* UIScrollView+refresh.swift */,
 				FD425C8A2666DF7000AA1131 /* UIView+Constraints.swift */,
+				FD4AA9F726698A3B00A34D38 /* Int+Utils.swift */,
+				FD4AA9F9266990BC00A34D38 /* Date+Utils.swift */,
+				FD4AA9FB266991AA00A34D38 /* TimeInterval+Utils.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -226,7 +250,7 @@
 		FD425C58266554CA00AA1131 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				FD425C852666A24000AA1131 /* Cell */,
+				FD425C852666A24000AA1131 /* Components */,
 				FD425C59266554CA00AA1131 /* RepoListView.swift */,
 				FD425C5A266554CA00AA1131 /* RepoListViewController.swift */,
 			);
@@ -298,12 +322,12 @@
 			path = Request;
 			sourceTree = "<group>";
 		};
-		FD425C852666A24000AA1131 /* Cell */ = {
+		FD425C852666A24000AA1131 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				FD425C862666A2F600AA1131 /* RepoListCollectionViewCell.swift */,
 			);
-			path = Cell;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		FD425C8C2666ECE600AA1131 /* Common */ = {
@@ -313,6 +337,60 @@
 				FD425C8F2667B92E00AA1131 /* RootNavigationController.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		FD425C962668573C00AA1131 /* RepoDetail */ = {
+			isa = PBXGroup;
+			children = (
+				FD425C992668573C00AA1131 /* View */,
+				FD425C9D2668573C00AA1131 /* Interactor */,
+				FD425C972668573C00AA1131 /* Presenter */,
+				FD425C9F2668573C00AA1131 /* Router */,
+				FD425C9C2668573C00AA1131 /* RepoDetailModule.swift */,
+			);
+			path = RepoDetail;
+			sourceTree = "<group>";
+		};
+		FD425C972668573C00AA1131 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				FD425C982668573C00AA1131 /* RepoDetailPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		FD425C992668573C00AA1131 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FD425CA92669623900AA1131 /* Components */,
+				FD425C9A2668573C00AA1131 /* RepoDetailView.swift */,
+				FD425C9B2668573C00AA1131 /* RepoDetailViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FD425C9D2668573C00AA1131 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				FD425C9E2668573C00AA1131 /* RepoDetailInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		FD425C9F2668573C00AA1131 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				FD425CA02668573C00AA1131 /* RepoDetailRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		FD425CA92669623900AA1131 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				FD425CA72669622700AA1131 /* IconLabel.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -424,11 +502,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD425CA52668573C00AA1131 /* RepoDetailInteractor.swift in Sources */,
 				FD425C842666662500AA1131 /* String+Utils.swift in Sources */,
 				FD425C62266554CA00AA1131 /* RepoListViewController.swift in Sources */,
 				FD425C5F266554CA00AA1131 /* RepoListModule.swift in Sources */,
+				FD425CA12668573C00AA1131 /* RepoDetailPresenter.swift in Sources */,
+				FD4AA9FA266990BC00A34D38 /* Date+Utils.swift in Sources */,
 				FD425C61266554CA00AA1131 /* RepoListView.swift in Sources */,
 				FD425C75266557DC00AA1131 /* URLRequestBuilder.swift in Sources */,
+				FD4AA9F826698A3B00A34D38 /* Int+Utils.swift in Sources */,
 				FD425C7B266595C700AA1131 /* RepositorySearchResults.swift in Sources */,
 				FD425C3426653CF700AA1131 /* UIScrollView+refresh.swift in Sources */,
 				FD425C822665B79E00AA1131 /* Order.swift in Sources */,
@@ -437,15 +519,21 @@
 				FD425C64266554CA00AA1131 /* RepoListRouter.swift in Sources */,
 				FD425C63266554CA00AA1131 /* RepoListInteractor.swift in Sources */,
 				FD425C70266557DC00AA1131 /* ApiService.swift in Sources */,
+				FD425CA42668573C00AA1131 /* RepoDetailModule.swift in Sources */,
 				FD425C7D2665B62F00AA1131 /* GetSearchRepositoriesRequest.swift in Sources */,
+				FD425CA82669622700AA1131 /* IconLabel.swift in Sources */,
+				FD425CA32668573C00AA1131 /* RepoDetailViewController.swift in Sources */,
 				FD425C872666A2F600AA1131 /* RepoListCollectionViewCell.swift in Sources */,
 				FD425C8B2666DF7000AA1131 /* UIView+Constraints.swift in Sources */,
 				FD425C8E2666ED7C00AA1131 /* LoadingSpinner.swift in Sources */,
 				FD425C7F2665B72D00AA1131 /* SortMethod.swift in Sources */,
 				FD425BB826653B0C00AA1131 /* AppDelegate.swift in Sources */,
+				FD425CA22668573C00AA1131 /* RepoDetailView.swift in Sources */,
+				FD4AA9FC266991AA00A34D38 /* TimeInterval+Utils.swift in Sources */,
 				FD425C902667B92F00AA1131 /* RootNavigationController.swift in Sources */,
 				FD425C72266557DC00AA1131 /* HttpMethod.swift in Sources */,
 				FD425C782665955C00AA1131 /* Repository.swift in Sources */,
+				FD425CA62668573C00AA1131 /* RepoDetailRouter.swift in Sources */,
 				FD425C71266557DC00AA1131 /* ApiConfig.swift in Sources */,
 				FD425C74266557DC00AA1131 /* Request.swift in Sources */,
 				FD425C3026653CF700AA1131 /* NibBackedView.swift in Sources */,
@@ -534,7 +622,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -589,7 +677,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -605,6 +693,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9XT7VKS6C2;
 				INFOPLIST_FILE = "GitSearch/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -623,6 +712,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9XT7VKS6C2;
 				INFOPLIST_FILE = "GitSearch/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

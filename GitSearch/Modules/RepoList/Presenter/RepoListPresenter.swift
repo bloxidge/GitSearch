@@ -22,6 +22,7 @@ protocol RepoListPresenter {
     func getRepository(at index: Int) -> Repository
     func selectSortMethod(_ sortMethod: SortMethod)
     func selectOrder(_ order: Order)
+    func didSelect(repository: Repository)
 }
 
 class RepoListPresenterImpl: RepoListPresenter {
@@ -90,5 +91,9 @@ class RepoListPresenterImpl: RepoListPresenter {
             selectedOrder = order
             repeatLastSearch()
         }
+    }
+    
+    func didSelect(repository: Repository) {
+        router.showDetail(for: repository)
     }
 }

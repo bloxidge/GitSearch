@@ -39,11 +39,11 @@ class LoadingSpinner: UIView {
     }()
     private var animator: UIViewPropertyAnimator?
 
-    private func fadeIn(completion: ((Bool) -> Void)? = nil) {
+    fileprivate func fadeIn(completion: ((Bool) -> Void)? = nil) {
         animateToAlpha(1.0, completion: completion)
     }
      
-    private func fadeOut(completion: ((Bool) -> Void)? = nil) {
+    fileprivate func fadeOut(completion: ((Bool) -> Void)? = nil) {
         animateToAlpha(0.0, completion: completion)
     }
     
@@ -60,9 +60,13 @@ class LoadingSpinner: UIView {
     }
 }
 
-extension LoadingSpinner {
+extension UIViewController {
+    
+    private var parentView: UIView {
+        return (isBeingPresented ? view : navigationController?.view) ?? view
+    }
 
-    static func start() {
+    func showLoadingSpinner() {
         let loadingSpinner: LoadingSpinner
         
         if let existingSpinner = existingSpinner {
@@ -71,16 +75,15 @@ extension LoadingSpinner {
             loadingSpinner = LoadingSpinner()
             loadingSpinner.alpha = 0
             
-            let window = UIApplication.shared.keyWindow
-            window?.addSubview(loadingSpinner)
-            window?.bringSubviewToFront(loadingSpinner)
+            parentView.addSubview(loadingSpinner)
+            parentView.bringSubviewToFront(loadingSpinner)
             loadingSpinner.autoPinToSuperview()
         }
         
         loadingSpinner.fadeIn()
     }
 
-    static func stop() {
+    func hideLoadingSpinner() {
         if let loadingSpinner = existingSpinner {
             loadingSpinner.fadeOut() { complete in
                 if complete {
@@ -90,8 +93,7 @@ extension LoadingSpinner {
         }
     }
     
-    private static var existingSpinner: LoadingSpinner? {
-        let window = UIApplication.shared.keyWindow
-        return window?.subviews.first(where: { $0 is LoadingSpinner }) as? LoadingSpinner
+    private var existingSpinner: LoadingSpinner? {
+        return parentView.subviews.first(where: { $0 is LoadingSpinner }) as? LoadingSpinner
     }
 }
