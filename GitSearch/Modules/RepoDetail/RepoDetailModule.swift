@@ -11,7 +11,7 @@ class RepoDetailModule {
     
     static func build(repository: Repository) -> UIViewController {
         let view = RepoDetailViewController()
-        let interactor = RepoDetailInteractorImpl()
+        let interactor = RepoDetailInteractorImpl(api: ApiServiceImpl.shared)
         let presenter = RepoDetailPresenterImpl(repository: repository)
         let router = RepoDetailRouterImpl()
         

@@ -49,6 +49,9 @@
 		FD4AA9F826698A3B00A34D38 /* Int+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4AA9F726698A3B00A34D38 /* Int+Utils.swift */; };
 		FD4AA9FA266990BC00A34D38 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4AA9F9266990BC00A34D38 /* Date+Utils.swift */; };
 		FD4AA9FC266991AA00A34D38 /* TimeInterval+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4AA9FB266991AA00A34D38 /* TimeInterval+Utils.swift */; };
+		FD8DD6B2266A7BBD004E582A /* MarkdownView in Frameworks */ = {isa = PBXBuildFile; productRef = FD8DD6B1266A7BBD004E582A /* MarkdownView */; };
+		FD8DD6B6266A90A1004E582A /* RepositoryContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6B5266A90A1004E582A /* RepositoryContent.swift */; };
+		FD8DD6B8266AB0DB004E582A /* GetRepositoryReadmeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6B7266AB0DB004E582A /* GetRepositoryReadmeRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +108,8 @@
 		FD4AA9F726698A3B00A34D38 /* Int+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Utils.swift"; sourceTree = "<group>"; };
 		FD4AA9F9266990BC00A34D38 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
 		FD4AA9FB266991AA00A34D38 /* TimeInterval+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Utils.swift"; sourceTree = "<group>"; };
+		FD8DD6B5266A90A1004E582A /* RepositoryContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryContent.swift; sourceTree = "<group>"; };
+		FD8DD6B7266AB0DB004E582A /* GetRepositoryReadmeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRepositoryReadmeRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +119,7 @@
 			files = (
 				FD425C9526683C0800AA1131 /* Kingfisher in Frameworks */,
 				FD425C4726654AF100AA1131 /* PMKFoundation in Frameworks */,
+				FD8DD6B2266A7BBD004E582A /* MarkdownView in Frameworks */,
 				FD425C44266540FB00AA1131 /* PromiseKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,6 +351,7 @@
 				FD425C992668573C00AA1131 /* View */,
 				FD425C9D2668573C00AA1131 /* Interactor */,
 				FD425C972668573C00AA1131 /* Presenter */,
+				FD8DD6B3266A8FEC004E582A /* Entities */,
 				FD425C9F2668573C00AA1131 /* Router */,
 				FD425C9C2668573C00AA1131 /* RepoDetailModule.swift */,
 			);
@@ -393,6 +400,23 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		FD8DD6B3266A8FEC004E582A /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				FD8DD6B4266A8FF9004E582A /* Request */,
+				FD8DD6B5266A90A1004E582A /* RepositoryContent.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		FD8DD6B4266A8FF9004E582A /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				FD8DD6B7266AB0DB004E582A /* GetRepositoryReadmeRequest.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -413,6 +437,7 @@
 				FD425C43266540FB00AA1131 /* PromiseKit */,
 				FD425C4626654AF100AA1131 /* PMKFoundation */,
 				FD425C9426683C0800AA1131 /* Kingfisher */,
+				FD8DD6B1266A7BBD004E582A /* MarkdownView */,
 			);
 			productName = GitSearch;
 			productReference = FD425BB426653B0C00AA1131 /* GitSearch.app */;
@@ -467,6 +492,7 @@
 				FD425C42266540FB00AA1131 /* XCRemoteSwiftPackageReference "PromiseKit" */,
 				FD425C4526654AF100AA1131 /* XCRemoteSwiftPackageReference "Foundation" */,
 				FD425C9326683C0800AA1131 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				FD8DD6B0266A7BBD004E582A /* XCRemoteSwiftPackageReference "MarkdownView" */,
 			);
 			productRefGroup = FD425BB526653B0C00AA1131 /* Products */;
 			projectDirPath = "";
@@ -527,6 +553,7 @@
 				FD425C8B2666DF7000AA1131 /* UIView+Constraints.swift in Sources */,
 				FD425C8E2666ED7C00AA1131 /* LoadingSpinner.swift in Sources */,
 				FD425C7F2665B72D00AA1131 /* SortMethod.swift in Sources */,
+				FD8DD6B6266A90A1004E582A /* RepositoryContent.swift in Sources */,
 				FD425BB826653B0C00AA1131 /* AppDelegate.swift in Sources */,
 				FD425CA22668573C00AA1131 /* RepoDetailView.swift in Sources */,
 				FD4AA9FC266991AA00A34D38 /* TimeInterval+Utils.swift in Sources */,
@@ -535,6 +562,7 @@
 				FD425C782665955C00AA1131 /* Repository.swift in Sources */,
 				FD425CA62668573C00AA1131 /* RepoDetailRouter.swift in Sources */,
 				FD425C71266557DC00AA1131 /* ApiConfig.swift in Sources */,
+				FD8DD6B8266AB0DB004E582A /* GetRepositoryReadmeRequest.swift in Sources */,
 				FD425C74266557DC00AA1131 /* Request.swift in Sources */,
 				FD425C3026653CF700AA1131 /* NibBackedView.swift in Sources */,
 				FD425C73266557DC00AA1131 /* HttpHeader.swift in Sources */,
@@ -693,6 +721,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9XT7VKS6C2;
 				INFOPLIST_FILE = "GitSearch/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -711,6 +740,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9XT7VKS6C2;
 				INFOPLIST_FILE = "GitSearch/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -822,6 +852,14 @@
 				minimumVersion = 6.3.0;
 			};
 		};
+		FD8DD6B0266A7BBD004E582A /* XCRemoteSwiftPackageReference "MarkdownView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/keitaoouchi/MarkdownView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.7.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -839,6 +877,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FD425C9326683C0800AA1131 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		FD8DD6B1266A7BBD004E582A /* MarkdownView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FD8DD6B0266A7BBD004E582A /* XCRemoteSwiftPackageReference "MarkdownView" */;
+			productName = MarkdownView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

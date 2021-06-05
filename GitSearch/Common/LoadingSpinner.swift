@@ -60,12 +60,12 @@ class LoadingSpinner: UIView {
     }
 }
 
-extension UIViewController {
-    
-    private var parentView: UIView {
-        return (isBeingPresented ? view : navigationController?.view) ?? view
-    }
+protocol SpinnerPresentable {
+    var spinnerParentView: UIView { get }
+}
 
+extension SpinnerPresentable {
+        
     func showLoadingSpinner() {
         let loadingSpinner: LoadingSpinner
         
@@ -75,8 +75,8 @@ extension UIViewController {
             loadingSpinner = LoadingSpinner()
             loadingSpinner.alpha = 0
             
-            parentView.addSubview(loadingSpinner)
-            parentView.bringSubviewToFront(loadingSpinner)
+            spinnerParentView.addSubview(loadingSpinner)
+            spinnerParentView.bringSubviewToFront(loadingSpinner)
             loadingSpinner.autoPinToSuperview()
         }
         
@@ -94,6 +94,18 @@ extension UIViewController {
     }
     
     private var existingSpinner: LoadingSpinner? {
-        return parentView.subviews.first(where: { $0 is LoadingSpinner }) as? LoadingSpinner
+        return spinnerParentView.subviews.first(where: { $0 is LoadingSpinner }) as? LoadingSpinner
+    }
+}
+
+extension UIViewController: SpinnerPresentable {
+    var spinnerParentView: UIView {
+        return (isBeingPresented ? view : navigationController?.view) ?? view
+    }
+}
+
+extension UIView: SpinnerPresentable {
+    var spinnerParentView: UIView {
+        return self
     }
 }

@@ -12,7 +12,7 @@ class RepoListModule {
     static func build() -> UIViewController {
         let view = RepoListViewController()
         let presenter = RepoListPresenterImpl()
-        let interactor = RepoListInteractorImpl(api: ApiServiceImpl(requestBuilder: URLRequestBuilderImpl()))
+        let interactor = RepoListInteractorImpl(api: ApiServiceImpl.shared)
         let router = RepoListRouterImpl()
         
         view.presenter = presenter
