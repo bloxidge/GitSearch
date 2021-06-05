@@ -175,6 +175,17 @@ class RepoDetailViewController: UIViewController {
     private func closeButtonActionHandler(_ action: UIAction) {
         presenter.didPressClose()
     }
+    
+    private func presentErrorAlert(message: String) {
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let retryAction = UIAlertAction(title: "Retry", style: .default) { [weak self] _ in
+            self?.presenter.loadReadme()
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(retryAction)
+        present(alertController, animated: true)
+    }
 }
 
 extension RepoDetailViewController: RepoDetailView {
@@ -210,14 +221,16 @@ extension RepoDetailViewController: RepoDetailView {
             mainView.showLoadingSpinner()
             
         case .readmeSuccess:
-            markdownView.load(markdown: presenter.getRawReadme())
             notFoundLabel.isHidden = true
+            markdownView.load(markdown: presenter.getRawReadme())
             
         case .readmeNotFound:
             notFoundLabel.isHidden = false
             
         case .error:
-            break
+            notFoundLabel.isHidden = true
+            presentErrorAlert(message: "Oops, something went wrong. Please try again.")
+
         }
     }
 }
