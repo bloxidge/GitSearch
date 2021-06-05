@@ -18,6 +18,7 @@ class RepoDetailViewController: UIViewController {
     var lastUpdatedLabel: UILabel!
     var mainView: UIView!
     var markdownView: MarkdownView!
+    var notFoundLabel: UILabel!
 
     var presenter: RepoDetailPresenter!
     
@@ -38,24 +39,12 @@ class RepoDetailViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         let headerView = createHeaderView()
-        let infoLabelStack = createInfoLabelStack()
-        let readmeView = createReadmeView()
-        mainView = UIView()
+        mainView = createMainView()
         
         view.addSubview(headerView)
         view.addSubview(mainView)
-        mainView.addSubview(infoLabelStack)
-        mainView.addSubview(readmeView)
         
         headerView.autoPinToSuperview(excludingEdges: [.bottom])
-        
-        infoLabelStack.autoCenterXInSafeArea()
-        infoLabelStack.autoPin(toSafeAreaEdge: .leading, insetBy: 16)
-        infoLabelStack.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 8).isActive = true
-        
-        readmeView.autoPinToSafeArea(excludingEdges: [.top, .bottom])
-        readmeView.autoPin(toSuperviewEdge: .bottom)
-        readmeView.topAnchor.constraint(equalTo: infoLabelStack.bottomAnchor, constant: 16).isActive = true
         
         mainView.autoPinToSuperview(excludingEdges: [.top])
         mainView.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
@@ -113,6 +102,33 @@ class RepoDetailViewController: UIViewController {
         headerStack.autoPinToSafeArea(insetBy: UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16))
         
         return headerView
+    }
+    
+    private func createMainView() -> UIView {
+        let infoLabelStack = createInfoLabelStack()
+        let readmeView = createReadmeView()
+        
+        notFoundLabel = UILabel()
+        notFoundLabel.text = "No README available"
+        notFoundLabel.textColor = .secondaryLabel
+        notFoundLabel.font = .boldSystemFont(ofSize: 16.0)
+        
+        let mainView = UIView()
+        mainView.addSubview(notFoundLabel)
+        mainView.addSubview(infoLabelStack)
+        mainView.addSubview(readmeView)
+        
+        infoLabelStack.autoCenterXInSafeArea()
+        infoLabelStack.autoPin(toSafeAreaEdge: .leading, insetBy: 16)
+        infoLabelStack.autoPin(toView: mainView, edge: .top, insetBy: 8)
+        
+        readmeView.autoPinToSafeArea(excludingEdges: [.top, .bottom])
+        readmeView.autoPin(toSuperviewEdge: .bottom)
+        readmeView.topAnchor.constraint(equalTo: infoLabelStack.bottomAnchor, constant: 16).isActive = true
+        
+        notFoundLabel.autoCenterInSuperview()
+        
+        return mainView
     }
     
     private func createInfoLabelStack() -> UIView {
@@ -185,14 +201,17 @@ extension RepoDetailViewController: RepoDetailView {
             forksLabel.text = "\(repo.forksCount.metricString) forks"
             lastUpdatedLabel.text = "Updated \(repo.updatedAt.timeAgo)"
             
+            notFoundLabel.isHidden = true
+            
         case .loading:
             mainView.showLoadingSpinner()
             
         case .readmeSuccess:
             markdownView.load(markdown: presenter.getRawReadme())
+            notFoundLabel.isHidden = true
             
         case .readmeNotFound:
-            break
+            notFoundLabel.isHidden = false
             
         case .error:
             break
