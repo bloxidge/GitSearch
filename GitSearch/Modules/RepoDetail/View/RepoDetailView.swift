@@ -8,7 +8,11 @@
 import Foundation
 
 enum RepoDetailViewState: Equatable {
-    case initial(Repository)
+    case initial
+    case loading
+    case readmeSuccess
+    case readmeNotFound
+    case error
 }
 
 protocol RepoDetailView: AnyObject {

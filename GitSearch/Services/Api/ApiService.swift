@@ -15,6 +15,10 @@ protocol ApiService {
 
 class ApiServiceImpl: ApiService {
     
+    static var shared: ApiService = {
+        return ApiServiceImpl(requestBuilder: URLRequestBuilderImpl())
+    }()
+    
     let requestBuilder: URLRequestBuilder
     let urlSession: URLSession
     
