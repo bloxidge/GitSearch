@@ -1,0 +1,13 @@
+sourceryCommand: null
+GitSearchTests:
+  sources:
+    include:
+    - ./GitSearch
+  output: ./GitSearchTests/Mocks/Mock.generated.swift
+  targets:
+  - GitSearchTests
+  testable:
+  - GitSearch
+  import:
+  - Foundation
+  - PromiseKit
