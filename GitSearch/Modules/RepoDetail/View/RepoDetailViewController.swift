@@ -55,12 +55,14 @@ class RepoDetailViewController: UIViewController {
         titleLabel.font = .systemFont(ofSize: 24, weight: .heavy)
         titleLabel.numberOfLines = 0
         titleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+        titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
         descriptionLabel = UILabel()
         descriptionLabel.font = .systemFont(ofSize: 16, weight: .bold)
         descriptionLabel.textColor = .secondaryLabel
         descriptionLabel.numberOfLines = 0
         descriptionLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+        descriptionLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
         iconImageView = UIImageView()
         iconImageView.contentMode = .scaleAspectFit
@@ -143,6 +145,7 @@ class RepoDetailViewController: UIViewController {
         lastUpdatedLabel = UILabel()
         lastUpdatedLabel.font = .italicSystemFont(ofSize: 16)
         lastUpdatedLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+        lastUpdatedLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
         let starsForksStack = UIStackView(arrangedSubviews: [starsLabel, forksLabel])
         starsForksStack.spacing = 24
