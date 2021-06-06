@@ -5,7 +5,7 @@
 //  Created by Peter Bloxidge on 05/06/2021.
 //
 
-import Foundation
+import XCTest
 @testable import GitSearch
 import SwiftyMocky
 
@@ -31,11 +31,12 @@ struct RequestMatcher<Response: Decodable> {
 
     func getParameter() -> Parameter<Request<Response>> {
         return .matching { request in
-            self.method == request.method
-                && self.path == request.path
-                && self.specificHeaders.allSatisfy { request.headers.contains($0) }
-                && self.requestQueryParamsValid(request.queryParameters)
-                && self.requestBodyValid(request.body)
+            XCTAssertEqual(self.method, request.method)
+            XCTAssertEqual(self.path, request.path)
+            XCTAssert(self.specificHeaders.allSatisfy { request.headers.contains($0) })
+            XCTAssert(self.requestQueryParamsValid(request.queryParameters))
+            XCTAssert(self.requestBodyValid(request.body))
+            return true
         }
     }
 
