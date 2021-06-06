@@ -8,6 +8,8 @@
 import Foundation
 
 struct RepositoryContent: Decodable {
+    let content: String
+/*
     let name: String
     let path: String
     let sha: String
@@ -15,7 +17,6 @@ struct RepositoryContent: Decodable {
     let url, htmlUrl, gitUrl, downloadUrl: String
     let submoduleGitUrl, target: String?
     let type: String
-    let content: String
     let encoding: String
     let links: Links
     
@@ -36,4 +37,5 @@ struct RepositoryContent: Decodable {
              type, content, encoding
         case links = "_links"
     }
+ */
 }
