@@ -8,6 +8,16 @@
 import Foundation
 
 struct Repository: Decodable {
+    let id: Int
+    let fullName: String
+    let name: String
+    let description: String?
+    let htmlUrl: URL
+    let owner: User?
+    let forksCount: Int
+    let stargazersCount: Int
+    let updatedAt: Date
+/*
     let allowMergeCommit, allowRebaseMerge, allowSquashMerge: Bool?
     let archiveUrl: String
     let archived: Bool
@@ -17,20 +27,16 @@ struct Repository: Decodable {
     let defaultBranch: String
     let deleteBranchOnMerge: Bool?
     let deploymentsUrl: URL
-    let description: String?
     let disabled: Bool
     let downloadsUrl, eventsUrl: URL
     let fork: Bool
-    let forks, forksCount: Int
+    let forks: Int
     let forksUrl: URL
-    let fullName: String
     let gitCommitsUrl, gitRefsUrl, gitTagsUrl, gitUrl: String
     let hasDownloads, hasIssues, hasPages, hasProjects: Bool
     let hasWiki: Bool
     let homepage: String?
     let hooksUrl: String
-    let htmlUrl: URL
-    let id: Int
     let issueCommentUrl, issueEventsUrl, issuesUrl, keysUrl, labelsUrl: String
     let language: String?
     let languagesUrl: String
@@ -38,10 +44,9 @@ struct Repository: Decodable {
     let masterBranch: String?
     let mergesUrl, milestonesUrl: String
     let mirrorUrl: String?
-    let name, nodeId: String
+    let nodeId: String
     let notificationsUrl: String
     let openIssues, openIssuesCount: Int
-    let owner: User?
     let permissions: Permissions?
     let `private`: Bool
     let pullsUrl: String
@@ -50,16 +55,15 @@ struct Repository: Decodable {
     let score: Double
     let size: Int
     let sshUrl: String
-    let stargazersCount: Int
     let stargazersUrl, statusesUrl, subscribersUrl, subscriptionUrl,
         svnUrl, tagsUrl, teamsUrl: String
     let tempCloneToken: String?
     let textMatches: [SearchResultTextMatch]?
     let topics: [String]?
     let treesUrl: String
-    let updatedAt: Date
     let url: String
     let watchers, watchersCount: Int
+ */
 }
 
 extension Repository: Hashable {
@@ -83,17 +87,21 @@ struct License: Decodable {
 // MARK: - User
 
 struct User: Decodable {
-    let avatarUrl, eventsUrl, followersUrl, followingUrl, gistsUrl: String
+    let id: Int
+    let login: String
+    let avatarUrl: String
+/*
+    let eventsUrl, followersUrl, followingUrl, gistsUrl: String
     let gravatarId: String?
     let htmlUrl: URL
-    let id: Int
-    let login, nodeId: String
+    let nodeId: String
     let organizationsUrl, receivedEventsUrl, reposUrl: String
     let siteAdmin: Bool
     let starredAt: String?
     let starredUrl, subscriptionsUrl: String
     let type: String
     let url: String
+ */
 }
 
 // MARK: - Permissions

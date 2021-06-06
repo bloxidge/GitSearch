@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RepositorySearchResults: Decodable {
+struct RepositorySearchResults: Decodable, Equatable {
     let totalCount: Int
     let incompleteResults: Bool
     let items: [Repository]

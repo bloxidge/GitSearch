@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol RepoDetailRouter {
+protocol RepoDetailRouter: AutoMockable {
     func dismissDetail()
 }
 

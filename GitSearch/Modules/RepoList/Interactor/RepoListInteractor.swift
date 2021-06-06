@@ -8,7 +8,7 @@
 import Foundation
 import PromiseKit
 
-protocol RepoListInteractor {
+protocol RepoListInteractor: AutoMockable {
     var results: RepositorySearchResults? { get }
     
     func fetchRepoSearchResults(_ searchQuery: String,

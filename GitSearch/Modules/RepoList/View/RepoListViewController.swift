@@ -101,6 +101,17 @@ class RepoListViewController: UIViewController {
         
         dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
     }
+    
+    private func presentErrorAlert(message: String) {
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let retryAction = UIAlertAction(title: "Retry", style: .default) { [weak self] _ in
+            self?.presenter.repeatLastSearch()
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(retryAction)
+        present(alertController, animated: true)
+    }
 }
 
 // MARK: - RepoListView
@@ -114,16 +125,21 @@ extension RepoListViewController: RepoListView {
         switch state {
         case .initial:
             noResultsLabel.isHidden = true
+            
         case .loading:
             showLoadingSpinner()
+            
         case .doneResults:
             noResultsLabel.isHidden = true
             applySnapshot()
+            
         case .doneEmpty:
             noResultsLabel.isHidden = false
             applySnapshot(animatingDifferences: false)
+            
         case .error:
-            break
+            noResultsLabel.isHidden = true
+            presentErrorAlert(message: "Oops, something went wrong. Please try again.")
         }
     }
 }

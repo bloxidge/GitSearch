@@ -9,11 +9,15 @@ import UIKit
 import PromiseKit
 import PMKFoundation
 
-protocol ApiService {
+protocol ApiService: AutoMockable {
     func send<ResponseType: Decodable>(request: Request<ResponseType>) -> Promise<ResponseType>
 }
 
 class ApiServiceImpl: ApiService {
+    
+    static var shared: ApiService = {
+        return ApiServiceImpl(requestBuilder: URLRequestBuilderImpl())
+    }()
     
     let requestBuilder: URLRequestBuilder
     let urlSession: URLSession

@@ -6,39 +6,63 @@
 //
 
 import UIKit
+import MarkdownView
 
 class RepoDetailViewController: UIViewController {
     
-    var headerView: UIView!
     var titleLabel: UILabel!
     var descriptionLabel: UILabel!
     var iconImageView: UIImageView!
     var starsLabel: IconLabel!
     var forksLabel: IconLabel!
     var lastUpdatedLabel: UILabel!
+    var mainView: UIView!
+    var markdownView: MarkdownView!
+    var notFoundLabel: UILabel!
 
     var presenter: RepoDetailPresenter!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureHeaderView()
-        configureMainView()
+        configureViews()
         
         presenter.attachToView()
+        presenter.loadReadme()
     }
     
-    private func configureHeaderView() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    private func configureViews() {
         view.backgroundColor = .systemBackground
         
+        let headerView = createHeaderView()
+        mainView = createMainView()
+        
+        view.addSubview(headerView)
+        view.addSubview(mainView)
+        
+        headerView.autoPinToSuperview(excludingEdges: [.bottom])
+        
+        mainView.autoPinToSuperview(excludingEdges: [.top])
+        mainView.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
+    }
+    
+    private func createHeaderView() -> UIView {
         titleLabel = UILabel()
         titleLabel.font = .systemFont(ofSize: 24, weight: .heavy)
         titleLabel.numberOfLines = 0
+        titleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+        titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
         descriptionLabel = UILabel()
         descriptionLabel.font = .systemFont(ofSize: 16, weight: .bold)
         descriptionLabel.textColor = .secondaryLabel
         descriptionLabel.numberOfLines = 0
+        descriptionLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+        descriptionLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
         iconImageView = UIImageView()
         iconImageView.contentMode = .scaleAspectFit
@@ -64,23 +88,52 @@ class RepoDetailViewController: UIViewController {
         closeButtonImageStack.distribution = .equalSpacing
         closeButtonImageStack.alignment = .top
         
+        closeButtonImageStack.autoPin(toView: closeButton, edge: .bottom).priority = .defaultLow
+        closeButtonImageStack.autoPin(toView: imageContainer, edge: .bottom)
+        
         let headerStack = UIStackView(arrangedSubviews: [closeButtonImageStack, titleLabel, descriptionLabel])
         headerStack.axis = .vertical
         headerStack.spacing = 8
         
-        headerView = UIView()
+        let headerView = UIView()
         headerView.backgroundColor = UIColor(named: "AccentColor")?.withAlphaComponent(0.6)
         headerView.addSubview(headerStack)
-        
-        view.addSubview(headerView)
         
         headerStack.autoPin(toSafeAreaEdge: .top, insetBy: 16)
         headerStack.autoPin(toSafeAreaEdge: .leading, insetBy: 16)
         headerStack.autoPinToSafeArea(insetBy: UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16))
-        headerView.autoPinToSuperview(excludingEdges: [.bottom])
+        
+        return headerView
     }
     
-    private func configureMainView() {
+    private func createMainView() -> UIView {
+        let infoLabelStack = createInfoLabelStack()
+        let readmeView = createReadmeView()
+        
+        notFoundLabel = UILabel()
+        notFoundLabel.text = "No README available"
+        notFoundLabel.textColor = .secondaryLabel
+        notFoundLabel.font = .boldSystemFont(ofSize: 16.0)
+        
+        let mainView = UIView()
+        mainView.addSubview(notFoundLabel)
+        mainView.addSubview(infoLabelStack)
+        mainView.addSubview(readmeView)
+        
+        infoLabelStack.autoCenterXInSafeArea()
+        infoLabelStack.autoPin(toSafeAreaEdge: .leading, insetBy: 16)
+        infoLabelStack.autoPin(toView: mainView, edge: .top, insetBy: 8)
+        
+        readmeView.autoPinToSafeArea(excludingEdges: [.top, .bottom])
+        readmeView.autoPin(toSuperviewEdge: .bottom)
+        readmeView.topAnchor.constraint(equalTo: infoLabelStack.bottomAnchor, constant: 16).isActive = true
+        
+        notFoundLabel.autoCenterInSuperview()
+        
+        return mainView
+    }
+    
+    private func createInfoLabelStack() -> UIView {
         starsLabel = IconLabel()
         starsLabel.font = .systemFont(ofSize: 16)
         starsLabel.icon = UIImage(named: "star-24")
@@ -91,50 +144,93 @@ class RepoDetailViewController: UIViewController {
         
         lastUpdatedLabel = UILabel()
         lastUpdatedLabel.font = .italicSystemFont(ofSize: 16)
+        lastUpdatedLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+        lastUpdatedLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
         let starsForksStack = UIStackView(arrangedSubviews: [starsLabel, forksLabel])
         starsForksStack.spacing = 24
         
-        let infoLabelsStack = UIStackView(arrangedSubviews: [starsForksStack, lastUpdatedLabel])
-        infoLabelsStack.spacing = 8
-        infoLabelsStack.axis = .vertical
-        infoLabelsStack.alignment = .leading
+        let infoLabelStack = UIStackView(arrangedSubviews: [starsForksStack, lastUpdatedLabel])
+        infoLabelStack.spacing = 8
+        infoLabelStack.axis = .vertical
+        infoLabelStack.alignment = .leading
         
-        view.addSubview(infoLabelsStack)
+        return infoLabelStack
+    }
+    
+    private func createReadmeView() -> UIView {
+        markdownView = MarkdownView()
+        markdownView.isScrollEnabled = true
+
+        markdownView.onTouchLink = { urlRequest in
+            if let url = urlRequest.url, UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
+            return false
+        }
         
-        infoLabelsStack.autoCenterXInSafeArea()
-        infoLabelsStack.autoPin(toSafeAreaEdge: .leading, insetBy: 16)
-        infoLabelsStack.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 8).isActive = true//(equalTo: viewOrLayoutGuide.topAnchor, constant: inset)
+        return markdownView
     }
     
     private func closeButtonActionHandler(_ action: UIAction) {
         presenter.didPressClose()
+    }
+    
+    private func presentErrorAlert(message: String) {
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let retryAction = UIAlertAction(title: "Retry", style: .default) { [weak self] _ in
+            self?.presenter.loadReadme()
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(retryAction)
+        present(alertController, animated: true)
     }
 }
 
 extension RepoDetailViewController: RepoDetailView {
     
     func updateView(state: RepoDetailViewState) {
+        mainView.hideLoadingSpinner()
+        
         switch state {
-        case .initial(let repository):
+        case .initial:
+            let repo = presenter.repository
             
-            titleLabel.text = repository.fullName
+            titleLabel.text = repo.fullName
             
-            if let description = repository.description, !description.isEmpty {
+            if let description = repo.description, !description.isEmpty {
                 descriptionLabel.text = description
             } else {
                 descriptionLabel.isHidden = true
             }
             
-            if let imageUrl = URL(string: repository.owner?.avatarUrl) {
+            if let imageUrl = URL(string: repo.owner?.avatarUrl) {
                 iconImageView.kf.setImage(with: imageUrl)
             } else {
                 iconImageView.isHidden = true
             }
             
-            starsLabel.text = "\(repository.stargazersCount.metricString) stars"
-            forksLabel.text = "\(repository.forksCount.metricString) forks"
-            lastUpdatedLabel.text = "Updated \(repository.updatedAt.timeAgo)"
+            starsLabel.text = "\(repo.stargazersCount.metricString) stars"
+            forksLabel.text = "\(repo.forksCount.metricString) forks"
+            lastUpdatedLabel.text = "Updated \(repo.updatedAt.timeAgo)"
+            
+            notFoundLabel.isHidden = true
+            
+        case .loading:
+            mainView.showLoadingSpinner()
+            
+        case .readmeSuccess:
+            notFoundLabel.isHidden = true
+            markdownView.load(markdown: presenter.getRawReadme())
+            
+        case .readmeNotFound:
+            notFoundLabel.isHidden = false
+            
+        case .error:
+            notFoundLabel.isHidden = true
+            presentErrorAlert(message: "Oops, something went wrong. Please try again.")
+
         }
     }
 }
