@@ -17,6 +17,9 @@ struct RepositoryFixtures {
     static let searchResultsEmpty = RepositorySearchResults(totalCount: 0,
                                                             incompleteResults: false,
                                                             items: [])
+    
+    static let repo = repos.first!
+    
     static let repos = [
         Repository(id: 0,
                    fullName: "Owner1/Thing",

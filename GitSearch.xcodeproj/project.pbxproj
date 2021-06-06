@@ -59,6 +59,8 @@
 		FD8DD6CD266C13AC004E582A /* XCTestExpectation+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6CB266C13AB004E582A /* XCTestExpectation+Promise.swift */; };
 		FD8DD6D0266C14BF004E582A /* RepositoryFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6CF266C14BF004E582A /* RepositoryFixtures.swift */; };
 		FD8DD6D6266C21A1004E582A /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6D5266C21A0004E582A /* ApiError.swift */; };
+		FD8DD6D8266C5E0F004E582A /* RepoDetailInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6D7266C5E0F004E582A /* RepoDetailInteractorTests.swift */; };
+		FD8DD6DA266C5F92004E582A /* RepositoryContentFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6D9266C5F92004E582A /* RepositoryContentFixtures.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +125,8 @@
 		FD8DD6CB266C13AB004E582A /* XCTestExpectation+Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestExpectation+Promise.swift"; sourceTree = "<group>"; };
 		FD8DD6CF266C14BF004E582A /* RepositoryFixtures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryFixtures.swift; sourceTree = "<group>"; };
 		FD8DD6D5266C21A0004E582A /* ApiError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		FD8DD6D7266C5E0F004E582A /* RepoDetailInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDetailInteractorTests.swift; sourceTree = "<group>"; };
+		FD8DD6D9266C5F92004E582A /* RepositoryContentFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryContentFixtures.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -456,6 +460,7 @@
 			isa = PBXGroup;
 			children = (
 				FD8DD6C7266C1356004E582A /* RepoListInteractorTests.swift */,
+				FD8DD6D7266C5E0F004E582A /* RepoDetailInteractorTests.swift */,
 			);
 			path = InteractorTests;
 			sourceTree = "<group>";
@@ -473,6 +478,7 @@
 			isa = PBXGroup;
 			children = (
 				FD8DD6CF266C14BF004E582A /* RepositoryFixtures.swift */,
+				FD8DD6D9266C5F92004E582A /* RepositoryContentFixtures.swift */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -685,7 +691,9 @@
 				FD8DD6C5266C0C67004E582A /* Mock.generated.swift in Sources */,
 				FD8DD6D0266C14BF004E582A /* RepositoryFixtures.swift in Sources */,
 				FD8DD6C8266C1356004E582A /* RepoListInteractorTests.swift in Sources */,
+				FD8DD6D8266C5E0F004E582A /* RepoDetailInteractorTests.swift in Sources */,
 				FD8DD6CC266C13AC004E582A /* RequestMatcher.swift in Sources */,
+				FD8DD6DA266C5F92004E582A /* RepositoryContentFixtures.swift in Sources */,
 				FD8DD6CD266C13AC004E582A /* XCTestExpectation+Promise.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
