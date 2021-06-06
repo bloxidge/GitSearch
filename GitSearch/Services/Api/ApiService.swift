@@ -9,7 +9,7 @@ import UIKit
 import PromiseKit
 import PMKFoundation
 
-protocol ApiService {
+protocol ApiService: AutoMockable {
     func send<ResponseType: Decodable>(request: Request<ResponseType>) -> Promise<ResponseType>
 }
 

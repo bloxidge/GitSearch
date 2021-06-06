@@ -10,10 +10,12 @@ import PromiseKit
 import PMKFoundation
 
 protocol RepoDetailPresenter {
+    func attachToView()
+    
     var repository: Repository { get }
     
-    func attachToView()
-    func loadReadme()
+    @discardableResult
+    func loadReadme() -> Promise<Void>
     func getRawReadme() -> String?
     func didPressClose()
 }
@@ -34,14 +36,16 @@ class RepoDetailPresenterImpl: RepoDetailPresenter {
         view.updateView(state: .initial)
     }
     
-    func loadReadme() {
+    @discardableResult
+    func loadReadme() -> Promise<Void> {
         view.updateView(state: .loading)
         
-        interactor.fetchReadmeContentFile(for: repository)
+        let promise = interactor.fetchReadmeContent(for: repository)
             .done { _ in
                 self.view.updateView(state: .readmeSuccess)
             }
-            .catch { error in
+            
+        promise.catch { error in
                 if let httpError = error as? PMKHTTPError,
                    case .badStatusCode(let code, _, _) = httpError, code == 404 {
                     self.view.updateView(state: .readmeNotFound)
@@ -50,16 +54,12 @@ class RepoDetailPresenterImpl: RepoDetailPresenter {
                     self.view.updateView(state: .error)
                 }
             }
+        
+        return promise
     }
     
     func getRawReadme() -> String? {
-        let content = interactor.readmeFileContents?.content
-        guard let base64Content = content?.replacingOccurrences(of: "\n", with: ""),
-              let data = Data(base64Encoded: base64Content),
-              let decodedContent = String(data: data, encoding: .utf8) else {
-            return nil
-        }
-        return decodedContent
+        return interactor.readmeContentString
     }
     
     func didPressClose() {

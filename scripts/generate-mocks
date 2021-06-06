@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Install SwiftMocky via Mint if not installed
+
+if ! command -v mint &> /dev/null
+then
+    echo "Installing Mint..."
+    brew install mint
+fi
+
+if ! command -v swiftymocky &> /dev/null
+then
+    echo "Installing SwiftyMocky CLI..."
+    mint install MakeAWishFoundation/SwiftyMocky-CLI
+fi
+
+# Generate mocks
+
+parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+project_root=$parent_path/..
+
+cd $project_root
+
+echo "Generating mocks..."
+swiftymocky generate

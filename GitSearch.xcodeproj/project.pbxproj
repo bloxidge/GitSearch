@@ -3,14 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		FD425BB826653B0C00AA1131 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425BB726653B0C00AA1131 /* AppDelegate.swift */; };
 		FD425BC126653B0F00AA1131 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD425BC026653B0F00AA1131 /* Assets.xcassets */; };
 		FD425BC426653B0F00AA1131 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD425BC226653B0F00AA1131 /* LaunchScreen.storyboard */; };
-		FD425BCF26653B1000AA1131 /* GitSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425BCE26653B1000AA1131 /* GitSearchTests.swift */; };
 		FD425C3026653CF700AA1131 /* NibBackedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C1726653CF700AA1131 /* NibBackedView.swift */; };
 		FD425C3426653CF700AA1131 /* UIScrollView+refresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C1C26653CF700AA1131 /* UIScrollView+refresh.swift */; };
 		FD425C3526653CF700AA1131 /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD425C1D26653CF700AA1131 /* DesignableView.swift */; };
@@ -52,6 +51,18 @@
 		FD8DD6B2266A7BBD004E582A /* MarkdownView in Frameworks */ = {isa = PBXBuildFile; productRef = FD8DD6B1266A7BBD004E582A /* MarkdownView */; };
 		FD8DD6B6266A90A1004E582A /* RepositoryContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6B5266A90A1004E582A /* RepositoryContent.swift */; };
 		FD8DD6B8266AB0DB004E582A /* GetRepositoryReadmeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6B7266AB0DB004E582A /* GetRepositoryReadmeRequest.swift */; };
+		FD8DD6BD266C09E3004E582A /* SwiftyMocky in Frameworks */ = {isa = PBXBuildFile; productRef = FD8DD6BC266C09E3004E582A /* SwiftyMocky */; };
+		FD8DD6C3266C0C25004E582A /* AutoMockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6C2266C0C25004E582A /* AutoMockable.swift */; };
+		FD8DD6C5266C0C67004E582A /* Mock.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6C4266C0C67004E582A /* Mock.generated.swift */; };
+		FD8DD6C8266C1356004E582A /* RepoListInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6C7266C1356004E582A /* RepoListInteractorTests.swift */; };
+		FD8DD6CC266C13AC004E582A /* RequestMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6CA266C13AB004E582A /* RequestMatcher.swift */; };
+		FD8DD6CD266C13AC004E582A /* XCTestExpectation+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6CB266C13AB004E582A /* XCTestExpectation+Promise.swift */; };
+		FD8DD6D0266C14BF004E582A /* RepositoryFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6CF266C14BF004E582A /* RepositoryFixtures.swift */; };
+		FD8DD6D6266C21A1004E582A /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6D5266C21A0004E582A /* ApiError.swift */; };
+		FD8DD6D8266C5E0F004E582A /* RepoDetailInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6D7266C5E0F004E582A /* RepoDetailInteractorTests.swift */; };
+		FD8DD6DA266C5F92004E582A /* RepositoryContentFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6D9266C5F92004E582A /* RepositoryContentFixtures.swift */; };
+		FD8DD6E0266C7CE3004E582A /* RepoDetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6DD266C6A73004E582A /* RepoDetailPresenterTests.swift */; };
+		FD8DD6E1266C7D31004E582A /* RepoListPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6DC266C6A73004E582A /* RepoListPresenterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +82,6 @@
 		FD425BC326653B0F00AA1131 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FD425BC526653B0F00AA1131 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD425BCA26653B1000AA1131 /* GitSearchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GitSearchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FD425BCE26653B1000AA1131 /* GitSearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitSearchTests.swift; sourceTree = "<group>"; };
 		FD425BD026653B1000AA1131 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD425C1726653CF700AA1131 /* NibBackedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibBackedView.swift; sourceTree = "<group>"; };
 		FD425C1C26653CF700AA1131 /* UIScrollView+refresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+refresh.swift"; sourceTree = "<group>"; };
@@ -110,6 +120,17 @@
 		FD4AA9FB266991AA00A34D38 /* TimeInterval+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Utils.swift"; sourceTree = "<group>"; };
 		FD8DD6B5266A90A1004E582A /* RepositoryContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryContent.swift; sourceTree = "<group>"; };
 		FD8DD6B7266AB0DB004E582A /* GetRepositoryReadmeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRepositoryReadmeRequest.swift; sourceTree = "<group>"; };
+		FD8DD6C2266C0C25004E582A /* AutoMockable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoMockable.swift; sourceTree = "<group>"; };
+		FD8DD6C4266C0C67004E582A /* Mock.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.generated.swift; sourceTree = "<group>"; };
+		FD8DD6C7266C1356004E582A /* RepoListInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoListInteractorTests.swift; sourceTree = "<group>"; };
+		FD8DD6CA266C13AB004E582A /* RequestMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestMatcher.swift; sourceTree = "<group>"; };
+		FD8DD6CB266C13AB004E582A /* XCTestExpectation+Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestExpectation+Promise.swift"; sourceTree = "<group>"; };
+		FD8DD6CF266C14BF004E582A /* RepositoryFixtures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryFixtures.swift; sourceTree = "<group>"; };
+		FD8DD6D5266C21A0004E582A /* ApiError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		FD8DD6D7266C5E0F004E582A /* RepoDetailInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDetailInteractorTests.swift; sourceTree = "<group>"; };
+		FD8DD6D9266C5F92004E582A /* RepositoryContentFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryContentFixtures.swift; sourceTree = "<group>"; };
+		FD8DD6DC266C6A73004E582A /* RepoListPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoListPresenterTests.swift; sourceTree = "<group>"; };
+		FD8DD6DD266C6A73004E582A /* RepoDetailPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDetailPresenterTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +149,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD8DD6BD266C09E3004E582A /* SwiftyMocky in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,7 +189,10 @@
 		FD425BCD26653B1000AA1131 /* GitSearchTests */ = {
 			isa = PBXGroup;
 			children = (
-				FD425BCE26653B1000AA1131 /* GitSearchTests.swift */,
+				FD8DD6BE266C0B66004E582A /* Tests */,
+				FD8DD6C1266C0BA0004E582A /* Mocks */,
+				FD8DD6CE266C1498004E582A /* Fixtures */,
+				FD8DD6C9266C13AB004E582A /* Utilities */,
 				FD425C4B26654C6100AA1131 /* Supporting Files */,
 			);
 			path = GitSearchTests;
@@ -199,6 +224,7 @@
 				FD425C1926653CF700AA1131 /* Extensions */,
 				FD425C1726653CF700AA1131 /* NibBackedView.swift */,
 				FD425C1D26653CF700AA1131 /* DesignableView.swift */,
+				FD8DD6C2266C0C25004E582A /* AutoMockable.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -285,6 +311,7 @@
 				FD425C69266557DC00AA1131 /* Request */,
 				FD425C67266557DC00AA1131 /* ApiService.swift */,
 				FD425C68266557DC00AA1131 /* ApiConfig.swift */,
+				FD8DD6D5266C21A0004E582A /* ApiError.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -417,6 +444,59 @@
 			path = Request;
 			sourceTree = "<group>";
 		};
+		FD8DD6BE266C0B66004E582A /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				FD8DD6C6266C0DD2004E582A /* InteractorTests */,
+				FD8DD6DB266C6A73004E582A /* PresenterTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		FD8DD6C1266C0BA0004E582A /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				FD8DD6C4266C0C67004E582A /* Mock.generated.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		FD8DD6C6266C0DD2004E582A /* InteractorTests */ = {
+			isa = PBXGroup;
+			children = (
+				FD8DD6C7266C1356004E582A /* RepoListInteractorTests.swift */,
+				FD8DD6D7266C5E0F004E582A /* RepoDetailInteractorTests.swift */,
+			);
+			path = InteractorTests;
+			sourceTree = "<group>";
+		};
+		FD8DD6C9266C13AB004E582A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				FD8DD6CA266C13AB004E582A /* RequestMatcher.swift */,
+				FD8DD6CB266C13AB004E582A /* XCTestExpectation+Promise.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		FD8DD6CE266C1498004E582A /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				FD8DD6CF266C14BF004E582A /* RepositoryFixtures.swift */,
+				FD8DD6D9266C5F92004E582A /* RepositoryContentFixtures.swift */,
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		FD8DD6DB266C6A73004E582A /* PresenterTests */ = {
+			isa = PBXGroup;
+			children = (
+				FD8DD6DC266C6A73004E582A /* RepoListPresenterTests.swift */,
+				FD8DD6DD266C6A73004E582A /* RepoDetailPresenterTests.swift */,
+			);
+			path = PresenterTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -424,6 +504,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FD425BDE26653B1000AA1131 /* Build configuration list for PBXNativeTarget "GitSearch" */;
 			buildPhases = (
+				FD8DD6B9266C0803004E582A /* Generate Mocks */,
 				FD425BB026653B0C00AA1131 /* Sources */,
 				FD425BB126653B0C00AA1131 /* Frameworks */,
 				FD425BB226653B0C00AA1131 /* Resources */,
@@ -447,6 +528,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FD425BE126653B1000AA1131 /* Build configuration list for PBXNativeTarget "GitSearchTests" */;
 			buildPhases = (
+				FD8DD6BA266C094C004E582A /* Generate Mocks */,
 				FD425BC626653B1000AA1131 /* Sources */,
 				FD425BC726653B1000AA1131 /* Frameworks */,
 				FD425BC826653B1000AA1131 /* Resources */,
@@ -457,6 +539,9 @@
 				FD425BCC26653B1000AA1131 /* PBXTargetDependency */,
 			);
 			name = GitSearchTests;
+			packageProductDependencies = (
+				FD8DD6BC266C09E3004E582A /* SwiftyMocky */,
+			);
 			productName = GitSearchTests;
 			productReference = FD425BCA26653B1000AA1131 /* GitSearchTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -493,6 +578,7 @@
 				FD425C4526654AF100AA1131 /* XCRemoteSwiftPackageReference "Foundation" */,
 				FD425C9326683C0800AA1131 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				FD8DD6B0266A7BBD004E582A /* XCRemoteSwiftPackageReference "MarkdownView" */,
+				FD8DD6BB266C09E3004E582A /* XCRemoteSwiftPackageReference "SwiftyMocky" */,
 			);
 			productRefGroup = FD425BB526653B0C00AA1131 /* Products */;
 			projectDirPath = "";
@@ -523,6 +609,47 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		FD8DD6B9266C0803004E582A /* Generate Mocks */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Mocks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "/usr/bin/xcrun --sdk macosx bash";
+			shellScript = "scripts/generate-mocks\n";
+		};
+		FD8DD6BA266C094C004E582A /* Generate Mocks */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Mocks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "/usr/bin/xcrun --sdk macosx bash";
+			shellScript = "scripts/generate-mocks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		FD425BB026653B0C00AA1131 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -541,6 +668,7 @@
 				FD425C3426653CF700AA1131 /* UIScrollView+refresh.swift in Sources */,
 				FD425C822665B79E00AA1131 /* Order.swift in Sources */,
 				FD425C60266554CA00AA1131 /* RepoListPresenter.swift in Sources */,
+				FD8DD6D6266C21A1004E582A /* ApiError.swift in Sources */,
 				FD425C3526653CF700AA1131 /* DesignableView.swift in Sources */,
 				FD425C64266554CA00AA1131 /* RepoListRouter.swift in Sources */,
 				FD425C63266554CA00AA1131 /* RepoListInteractor.swift in Sources */,
@@ -565,6 +693,7 @@
 				FD8DD6B8266AB0DB004E582A /* GetRepositoryReadmeRequest.swift in Sources */,
 				FD425C74266557DC00AA1131 /* Request.swift in Sources */,
 				FD425C3026653CF700AA1131 /* NibBackedView.swift in Sources */,
+				FD8DD6C3266C0C25004E582A /* AutoMockable.swift in Sources */,
 				FD425C73266557DC00AA1131 /* HttpHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -573,7 +702,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD425BCF26653B1000AA1131 /* GitSearchTests.swift in Sources */,
+				FD8DD6C5266C0C67004E582A /* Mock.generated.swift in Sources */,
+				FD8DD6E1266C7D31004E582A /* RepoListPresenterTests.swift in Sources */,
+				FD8DD6D0266C14BF004E582A /* RepositoryFixtures.swift in Sources */,
+				FD8DD6E0266C7CE3004E582A /* RepoDetailPresenterTests.swift in Sources */,
+				FD8DD6C8266C1356004E582A /* RepoListInteractorTests.swift in Sources */,
+				FD8DD6D8266C5E0F004E582A /* RepoDetailInteractorTests.swift in Sources */,
+				FD8DD6CC266C13AC004E582A /* RequestMatcher.swift in Sources */,
+				FD8DD6DA266C5F92004E582A /* RepositoryContentFixtures.swift in Sources */,
+				FD8DD6CD266C13AC004E582A /* XCTestExpectation+Promise.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -860,6 +997,14 @@
 				minimumVersion = 1.7.0;
 			};
 		};
+		FD8DD6BB266C09E3004E582A /* XCRemoteSwiftPackageReference "SwiftyMocky" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MakeAWishFoundation/SwiftyMocky";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -882,6 +1027,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FD8DD6B0266A7BBD004E582A /* XCRemoteSwiftPackageReference "MarkdownView" */;
 			productName = MarkdownView;
+		};
+		FD8DD6BC266C09E3004E582A /* SwiftyMocky */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FD8DD6BB266C09E3004E582A /* XCRemoteSwiftPackageReference "SwiftyMocky" */;
+			productName = SwiftyMocky;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

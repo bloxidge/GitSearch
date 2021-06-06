@@ -15,6 +15,6 @@ enum RepoDetailViewState: Equatable {
     case error
 }
 
-protocol RepoDetailView: AnyObject {
+protocol RepoDetailView: AnyObject, AutoMockable {
     func updateView(state: RepoDetailViewState)
 }

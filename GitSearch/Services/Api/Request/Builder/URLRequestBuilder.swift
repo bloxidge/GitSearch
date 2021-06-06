@@ -17,7 +17,7 @@ class URLRequestBuilderImpl: URLRequestBuilder {
     func build<T: Decodable>(from request: Request<T>, baseUrl: String) throws -> URLRequest {
         guard let url = URL(string: "\(baseUrl)/\(request.path)"),
               var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
-            throw URLError(.badURL)
+            throw ApiError.invalidUrl
         }
         
         components.percentEncodedQueryItems = request.queryParameters?
