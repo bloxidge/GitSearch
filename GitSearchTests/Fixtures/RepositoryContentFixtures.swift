@@ -14,11 +14,7 @@ struct RepositoryContentFixtures {
     
     static let invalidContent = RepositoryContent(content: "ThIsIsNoTaVaLiDBaSe64EnCoDeDsTrInG")
     
-    static let encodedString = "VGhpcyBpcyBhIGJhc2U2NC1lbmNvZGVkIHN0cmluZy4KCkl0IGNvbnRhaW5zIGxpbmUgYnJlYWtz\nIGluIHRoZSBlbmNvZGVkIHN0cmluZyB0byBzaW11bGF0ZSBNSU1FIGNodW5rcy4"
+    static let encodedString = "VGhpcyBpcyBhIGJhc2U2NC1lbmNvZGVkIHN0cmluZy4gSXQgY29udGFpbnMgbGluZSBicmVha3Mg\naW4gdGhlIGVuY29kZWQgc3RyaW5nIHRvIHNpbXVsYXRlIE1JTUUgY2h1bmtzLg=="
     
-    static let decodedString = """
-        This is a base64-encoded string.
-
-        It contains line breaks in the encoded string to simulate MIME chunk breaks.
-    """
+    static let decodedString = "This is a base64-encoded string. It contains line breaks in the encoded string to simulate MIME chunks."
 }

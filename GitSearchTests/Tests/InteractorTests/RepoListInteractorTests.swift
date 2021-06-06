@@ -30,17 +30,17 @@ class RepoListInteractorTests: XCTestCase {
     
     func testfetchRepoSearchResultsRequestValid() {
         // Given
-        //   API will return valid response
+        //   API will return anything
         Given(apiMock, .send(request: .any(Request<RepositorySearchResults>.self),
-                             willReturn: Promise.value(RepositoryFixtures.searchResults)))
+                             willReturn: .pending().promise))
         
         // When
         //   fetchRepoSearchResults method called
-        waitFor(sut.fetchRepoSearchResults("SearchString",
+        _ = sut.fetchRepoSearchResults("SearchString",
                                        sort: .helpWantedIssues,
                                        order: .ascending,
                                        resultsPerPage: 20,
-                                       page: 4))
+                                       page: 4)
 
         // Then
         //   It should send a correct request
@@ -64,7 +64,7 @@ class RepoListInteractorTests: XCTestCase {
                              willReturn: Promise.value(expectedResponse)))
         
         // When
-        //   fetchRepoSearchResults method called
+        //   fetchRepoSearchResults method resolves
         var capturedResult: RepositorySearchResults?
         var capturedError: Error?
         waitFor(sut.fetchRepoSearchResults(""),
@@ -91,7 +91,7 @@ class RepoListInteractorTests: XCTestCase {
                              willReturn: Promise(error: ApiError.invalidResponse)))
         
         // When
-        //   fetchRepoSearchResults method called
+        //   fetchRepoSearchResults method resolves
         var capturedResult: RepositorySearchResults?
         var capturedError: Error?
         waitFor(sut.fetchRepoSearchResults(""),

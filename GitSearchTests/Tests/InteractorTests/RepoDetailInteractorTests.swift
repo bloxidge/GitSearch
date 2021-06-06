@@ -15,6 +15,8 @@ class RepoDetailInteractorTests: XCTestCase {
     var sut: RepoDetailInteractor!
     
     let apiMock = ApiServiceMock()
+    
+    private let repoStub = RepositoryFixtures.repo
 
     override func setUp() {
         super.setUp()
@@ -30,20 +32,18 @@ class RepoDetailInteractorTests: XCTestCase {
     
     func testfetchReadmeContentRequestValid() {
         // Given
-        //   API will return valid response
+        //   API will return anything
         Given(apiMock, .send(request: .any(Request<RepositoryContent>.self),
-                             willReturn: Promise.value(RepositoryContentFixtures.repoContent)))
+                             willReturn: .pending().promise))
         
         // When
         //   fetchReadmeContent method called
-        let repo = RepositoryFixtures.repo
-        waitFor(sut.fetchReadmeContent(for: repo))
+        _ = sut.fetchReadmeContent(for: repoStub)
 
         // Then
         //   It should send a correct request
-        let path = "repos/\(repo.name)/\(repo.owner!.login)/readme"
-        let matcher = RequestMatcher<RepositorySearchResults>(method: .get,
-                                                              path: path)
+        let matcher = RequestMatcher<RepositoryContent>(method: .get,
+                                                        path: "repos/\(repoStub.owner!.login)/\(repoStub.name)/readme")
         Verify(apiMock, .send(request: matcher.getParameter()))
     }
     
@@ -55,10 +55,10 @@ class RepoDetailInteractorTests: XCTestCase {
                              willReturn: Promise.value(expectedResponse)))
         
         // When
-        //   fetchReadmeContent method called
+        //   fetchReadmeContent method resolves
         var capturedResult: String?
         var capturedError: Error?
-        waitFor(sut.fetchReadmeContent(for: RepositoryFixtures.repo),
+        waitFor(sut.fetchReadmeContent(for: repoStub),
                 &capturedResult,
                 &capturedError)
 
@@ -82,10 +82,10 @@ class RepoDetailInteractorTests: XCTestCase {
                              willReturn: Promise(error: ApiError.invalidResponse)))
         
         // When
-        //   fetchReadmeContent method called
+        //   fetchReadmeContent method resolves
         var capturedResult: String?
         var capturedError: Error?
-        waitFor(sut.fetchReadmeContent(for: RepositoryFixtures.repo),
+        waitFor(sut.fetchReadmeContent(for: repoStub),
                 &capturedResult,
                 &capturedError)
         
@@ -110,16 +110,16 @@ class RepoDetailInteractorTests: XCTestCase {
                              willReturn: Promise.value(expectedResponse)))
         
         // When
-        //   fetchReadmeContent method called
+        //   fetchReadmeContent method resolves
         var capturedResult: String?
         var capturedError: Error?
-        waitFor(sut.fetchReadmeContent(for: RepositoryFixtures.repo),
+        waitFor(sut.fetchReadmeContent(for: repoStub),
                 &capturedResult,
                 &capturedError)
         
         // Then
         //   It should throw a `Base64EncodingError.dataCorrupted` error
-        XCTAssert(capturedError as? Base64DecodingError == .dataCorrupted)
+        XCTAssertEqual(capturedError as? Base64DecodingError, .dataCorrupted)
 
         // And
         //   It should not return a valid result
