@@ -37,7 +37,7 @@ class RepoDetailPresenterImpl: RepoDetailPresenter {
     func loadReadme() {
         view.updateView(state: .loading)
         
-        interactor.fetchReadmeContentFile(for: repository)
+        interactor.fetchReadmeContent(for: repository)
             .done { _ in
                 self.view.updateView(state: .readmeSuccess)
             }
@@ -53,13 +53,7 @@ class RepoDetailPresenterImpl: RepoDetailPresenter {
     }
     
     func getRawReadme() -> String? {
-        let content = interactor.readmeFileContents?.content
-        guard let base64Content = content?.replacingOccurrences(of: "\n", with: ""),
-              let data = Data(base64Encoded: base64Content),
-              let decodedContent = String(data: data, encoding: .utf8) else {
-            return nil
-        }
-        return decodedContent
+        return interactor.readmeContentString
     }
     
     func didPressClose() {
