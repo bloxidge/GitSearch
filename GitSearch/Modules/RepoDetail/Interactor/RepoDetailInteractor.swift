@@ -8,7 +8,7 @@
 import Foundation
 import PromiseKit
 
-protocol RepoDetailInteractor {
+protocol RepoDetailInteractor: AutoMockable {
     var readmeContentString: String? { get }
     
     func fetchReadmeContent(for repository: Repository) -> Promise<String>

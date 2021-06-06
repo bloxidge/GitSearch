@@ -61,6 +61,8 @@
 		FD8DD6D6266C21A1004E582A /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6D5266C21A0004E582A /* ApiError.swift */; };
 		FD8DD6D8266C5E0F004E582A /* RepoDetailInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6D7266C5E0F004E582A /* RepoDetailInteractorTests.swift */; };
 		FD8DD6DA266C5F92004E582A /* RepositoryContentFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6D9266C5F92004E582A /* RepositoryContentFixtures.swift */; };
+		FD8DD6E0266C7CE3004E582A /* RepoDetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6DD266C6A73004E582A /* RepoDetailPresenterTests.swift */; };
+		FD8DD6E1266C7D31004E582A /* RepoListPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6DC266C6A73004E582A /* RepoListPresenterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +129,8 @@
 		FD8DD6D5266C21A0004E582A /* ApiError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		FD8DD6D7266C5E0F004E582A /* RepoDetailInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDetailInteractorTests.swift; sourceTree = "<group>"; };
 		FD8DD6D9266C5F92004E582A /* RepositoryContentFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryContentFixtures.swift; sourceTree = "<group>"; };
+		FD8DD6DC266C6A73004E582A /* RepoListPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoListPresenterTests.swift; sourceTree = "<group>"; };
+		FD8DD6DD266C6A73004E582A /* RepoDetailPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDetailPresenterTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -444,6 +448,7 @@
 			isa = PBXGroup;
 			children = (
 				FD8DD6C6266C0DD2004E582A /* InteractorTests */,
+				FD8DD6DB266C6A73004E582A /* PresenterTests */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -481,6 +486,15 @@
 				FD8DD6D9266C5F92004E582A /* RepositoryContentFixtures.swift */,
 			);
 			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		FD8DD6DB266C6A73004E582A /* PresenterTests */ = {
+			isa = PBXGroup;
+			children = (
+				FD8DD6DC266C6A73004E582A /* RepoListPresenterTests.swift */,
+				FD8DD6DD266C6A73004E582A /* RepoDetailPresenterTests.swift */,
+			);
+			path = PresenterTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -689,7 +703,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD8DD6C5266C0C67004E582A /* Mock.generated.swift in Sources */,
+				FD8DD6E1266C7D31004E582A /* RepoListPresenterTests.swift in Sources */,
 				FD8DD6D0266C14BF004E582A /* RepositoryFixtures.swift in Sources */,
+				FD8DD6E0266C7CE3004E582A /* RepoDetailPresenterTests.swift in Sources */,
 				FD8DD6C8266C1356004E582A /* RepoListInteractorTests.swift in Sources */,
 				FD8DD6D8266C5E0F004E582A /* RepoDetailInteractorTests.swift in Sources */,
 				FD8DD6CC266C13AC004E582A /* RequestMatcher.swift in Sources */,

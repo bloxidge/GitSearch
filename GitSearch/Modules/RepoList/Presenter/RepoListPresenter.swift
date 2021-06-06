@@ -15,8 +15,10 @@ protocol RepoListPresenter {
     var selectedOrder: Order { get }
     var isReloadEnabled: Bool { get }
     
-    func performSearch(_ searchQuery: String)
-    func repeatLastSearch()
+    @discardableResult
+    func performSearch(_ searchQuery: String) -> Promise<Void>
+    @discardableResult
+    func repeatLastSearch() -> Promise<Void>
     func getVisibleResults() -> [Repository]
     func getVisibleCount() -> Int
     func getRepository(at index: Int) -> Repository
@@ -40,31 +42,37 @@ class RepoListPresenterImpl: RepoListPresenter {
         view.updateView(state: .initial)
     }
     
-    func performSearch(_ searchQuery: String) {
+    @discardableResult
+    func performSearch(_ searchQuery: String) -> Promise<Void> {
         view.updateView(state: .loading)
         
         lastSearchQuery = searchQuery
         
-        firstly {
-            interactor.fetchRepoSearchResults(searchQuery,
-                                              sort: selectedSortMethod,
-                                              order: selectedOrder)
-        }.done { results in
-            if results.items.isEmpty {
-                self.view.updateView(state: .doneEmpty)
-            } else {
-                self.view.updateView(state: .doneResults)
+        let promise = interactor.fetchRepoSearchResults(searchQuery,
+                                                        sort: selectedSortMethod,
+                                                        order: selectedOrder)
+            .done { results in
+                if results.items.isEmpty {
+                    self.view.updateView(state: .doneEmpty)
+                } else {
+                    self.view.updateView(state: .doneResults)
+                }
             }
-        }.catch { error in
+        
+        promise.catch { error in
             print(error)
             self.view.updateView(state: .error)
         }
+        
+        return promise
     }
     
-    func repeatLastSearch() {
-        if let searchQuery = lastSearchQuery {
-            performSearch(searchQuery)
+    @discardableResult
+    func repeatLastSearch() -> Promise<Void> {
+        guard let searchQuery = lastSearchQuery else {
+            return .value(())
         }
+        return performSearch(searchQuery)
     }
     
     func getVisibleResults() -> [Repository] {
@@ -94,6 +102,6 @@ class RepoListPresenterImpl: RepoListPresenter {
     }
     
     func didSelect(repository: Repository) {
-        router.showDetail(for: repository)
+        router.presentDetail(for: repository)
     }
 }
