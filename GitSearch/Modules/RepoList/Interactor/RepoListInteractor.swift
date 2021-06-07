@@ -9,32 +9,32 @@ import Foundation
 import PromiseKit
 
 protocol RepoListInteractor: AutoMockable {
-    var results: RepositorySearchResults? { get }
+    var fullResults: RepositorySearchResults? { get }
     
     func fetchRepoSearchResults(_ searchQuery: String,
                                 sort: SortMethod?,
-                                order: Order?,
-                                resultsPerPage: Int?,
-                                page: Int?) -> Promise<RepositorySearchResults>
+                                order: Order?) -> Promise<RepositorySearchResults>
+    func fetchNextPageResults() -> Promise<Void>
 }
 
 extension RepoListInteractor {
+
     func fetchRepoSearchResults(_ searchQuery: String,
                                 sort: SortMethod? = nil,
-                                order: Order? = nil,
-                                resultsPerPage: Int? = nil,
-                                page: Int? = nil) -> Promise<RepositorySearchResults> {
+                                order: Order? = nil) -> Promise<RepositorySearchResults> {
         fetchRepoSearchResults(searchQuery,
                                sort: sort,
-                               order: order,
-                               resultsPerPage: resultsPerPage,
-                               page: page)
+                               order: order)
     }
 }
 
 class RepoListInteractorImpl: RepoListInteractor {
+
+    typealias LastSearch = (query: String, sort: SortMethod?, order: Order?)
     
-    var results: RepositorySearchResults?
+    var fullResults: RepositorySearchResults?
+    private var lastSearch: LastSearch?
+    private var currentPage: Int = 1
     
     let api: ApiService
     
@@ -44,19 +44,51 @@ class RepoListInteractorImpl: RepoListInteractor {
     
     func fetchRepoSearchResults(_ searchQuery: String,
                                 sort: SortMethod?,
-                                order: Order?,
-                                resultsPerPage: Int?,
-                                page: Int?) -> Promise<RepositorySearchResults> {
+                                order: Order?) -> Promise<RepositorySearchResults> {
+        currentPage = 1
+
+        lastSearch = (searchQuery, sort, order)
+
+        return requestSearchResults(searchQuery,
+                                    sort: sort,
+                                    order: order,
+                                    page: currentPage)
+            .map { initialResults in
+                self.fullResults = initialResults
+                return initialResults
+            }
+    }
+
+    func fetchNextPageResults() -> Promise<Void> {
+        guard let search = lastSearch else {
+            return Promise(error: RepoSearchError.missingInitialSearch)
+        }
+
+        let nextPage = currentPage + 1
+
+        return requestSearchResults(search.query,
+                                    sort: search.sort,
+                                    order: search.order,
+                                    page: nextPage)
+            .done { newResults in
+                self.fullResults?.items += newResults.items
+                self.currentPage = nextPage
+            }
+    }
+
+    private func requestSearchResults(_ searchQuery: String,
+                                      sort: SortMethod?,
+                                      order: Order?,
+                                      page: Int?) -> Promise<RepositorySearchResults> {
         let request = GetSearchRepositoriesRequest(searchQuery: searchQuery,
                                                    sort: sort,
                                                    order: order,
-                                                   perPage: resultsPerPage,
+                                                   perPage: nil, // 30 (default)
                                                    page: page)
         return api.send(request: request)
-            .map {
-                self.results = $0
-                return $0
-            }
     }
-    
+}
+
+enum RepoSearchError: Error {
+    case missingInitialSearch
 }

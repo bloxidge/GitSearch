@@ -10,6 +10,7 @@ import Foundation
 enum RepoListViewState: Equatable {
     case initial
     case loading
+    case scrollLoading
     case doneResults
     case doneEmpty
     case error

@@ -26,25 +26,22 @@ extension UIView: Anchorable {}
 
 extension UIView {
     
-    enum ConstraintEdge {
-        case top
-        case bottom
-        case leading
-        case trailing
-    }
-    
     @discardableResult
-    func autoPinToSuperview(insetBy insets: UIEdgeInsets = .zero, excludingEdges: [ConstraintEdge] = []) -> [NSLayoutConstraint] {
+    func autoPinToSuperview(insetBy insets: NSDirectionalEdgeInsets = .zero,
+                            excludingEdges: NSDirectionalRectEdge = []) -> [NSLayoutConstraint] {
         return autoPin(toView: superview!, insetBy: insets, excludingEdges: excludingEdges)
     }
     
     @discardableResult
-    func autoPinToSafeArea(insetBy insets: UIEdgeInsets = .zero, excludingEdges: [ConstraintEdge] = []) -> [NSLayoutConstraint] {
+    func autoPinToSafeArea(insetBy insets: NSDirectionalEdgeInsets = .zero,
+                           excludingEdges: NSDirectionalRectEdge = []) -> [NSLayoutConstraint] {
         return autoPin(toView: superview!.safeAreaLayoutGuide, insetBy: insets, excludingEdges: excludingEdges)
     }
 
     @discardableResult
-    func autoPin(toView viewOrLayoutGuide: Anchorable, insetBy insets: UIEdgeInsets = .zero, excludingEdges: [ConstraintEdge] = []) -> [NSLayoutConstraint] {
+    func autoPin(toView viewOrLayoutGuide: Anchorable,
+                 insetBy insets: NSDirectionalEdgeInsets = .zero,
+                 excludingEdges: NSDirectionalRectEdge = []) -> [NSLayoutConstraint] {
         self.translatesAutoresizingMaskIntoConstraints = false
 
         var constraints = [NSLayoutConstraint]()
@@ -56,10 +53,10 @@ extension UIView {
             constraints.append(bottomAnchor.constraint(equalTo: viewOrLayoutGuide.bottomAnchor, constant: -insets.bottom))
         }
         if !excludingEdges.contains(.leading) {
-            constraints.append(leadingAnchor.constraint(equalTo: viewOrLayoutGuide.leadingAnchor, constant: insets.left))
+            constraints.append(leadingAnchor.constraint(equalTo: viewOrLayoutGuide.leadingAnchor, constant: insets.leading))
         }
         if !excludingEdges.contains(.trailing) {
-            constraints.append(trailingAnchor.constraint(equalTo: viewOrLayoutGuide.trailingAnchor, constant: -insets.right))
+            constraints.append(trailingAnchor.constraint(equalTo: viewOrLayoutGuide.trailingAnchor, constant: -insets.trailing))
         }
         constraints.forEach { $0.isActive = true }
         
@@ -67,17 +64,21 @@ extension UIView {
     }
     
     @discardableResult
-    func autoPin(toSuperviewEdge edge: ConstraintEdge, insetBy inset: CGFloat = 0.0) -> NSLayoutConstraint {
+    func autoPin(toSuperviewEdge edge: NSDirectionalRectEdge,
+                 insetBy inset: CGFloat = 0.0) -> NSLayoutConstraint {
         return autoPin(toView: superview!, edge: edge, insetBy: inset)
     }
     
     @discardableResult
-    func autoPin(toSafeAreaEdge edge: ConstraintEdge, insetBy inset: CGFloat = 0.0) -> NSLayoutConstraint {
+    func autoPin(toSafeAreaEdge edge: NSDirectionalRectEdge,
+                 insetBy inset: CGFloat = 0.0) -> NSLayoutConstraint {
         return autoPin(toView: superview!.safeAreaLayoutGuide, edge: edge, insetBy: inset)
     }
 
     @discardableResult
-    func autoPin(toView viewOrLayoutGuide: Anchorable, edge: ConstraintEdge, insetBy inset: CGFloat = 0.0) -> NSLayoutConstraint {
+    func autoPin(toView viewOrLayoutGuide: Anchorable,
+                 edge: NSDirectionalRectEdge,
+                 insetBy inset: CGFloat = 0.0) -> NSLayoutConstraint {
         self.translatesAutoresizingMaskIntoConstraints = false
         
         let constraint: NSLayoutConstraint
@@ -91,6 +92,8 @@ extension UIView {
             constraint = leadingAnchor.constraint(equalTo: viewOrLayoutGuide.leadingAnchor, constant: inset)
         case .trailing:
             constraint = trailingAnchor.constraint(equalTo: viewOrLayoutGuide.trailingAnchor, constant: -inset)
+        default:
+            fatalError("\(#function) must specify a single NSDirectionalRectEdge.")
         }
         constraint.isActive = true
         

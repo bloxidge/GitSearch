@@ -12,20 +12,29 @@ class RepoListViewController: UIViewController {
     struct Constants {
         static let spacing: CGFloat = 16
         static let cellHeight: CGFloat = 80
+        static let loadMoreViewHeight: CGFloat = 60
     }
     
     typealias DataSource = UICollectionViewDiffableDataSource<Int, Repository>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Repository>
     
     lazy var dataSource: DataSource = {
-        DataSource(collectionView: collectionView) { collectionView, indexPath, repository in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RepoListCell",
+        let dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, repository in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RepoListCollectionViewCell.reuseIdentifier,
                                                           for: indexPath) as? RepoListCollectionViewCell
             cell?.title = repository.name
             cell?.author = repository.owner?.login
             cell?.avatarUrl = URL(string: repository.owner?.avatarUrl)
             return cell
         }
+        dataSource.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
+            let view =  collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                        withReuseIdentifier: RepoListLoadMoreView.reuseIdentifier,
+                                                                        for: indexPath) as? RepoListLoadMoreView
+            self?.loadMoreView = view
+            return view
+        }
+        return dataSource
     }()
     
     var collectionView: UICollectionView!
@@ -33,8 +42,11 @@ class RepoListViewController: UIViewController {
     var searchController: UISearchController!
     var reloadButton: UIBarButtonItem!
     var sortButton: UIBarButtonItem!
+    var loadMoreView: RepoListLoadMoreView?
     
     var presenter: RepoListPresenter!
+
+    private var isScrollLoading: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,20 +67,26 @@ class RepoListViewController: UIViewController {
                                           collectionViewLayout: createCompositionalLayout(for: view.bounds.size))
         collectionView.dataSource = dataSource
         collectionView.delegate = self
-        collectionView.register(RepoListCollectionViewCell.self, forCellWithReuseIdentifier: "RepoListCell")
+        collectionView.register(RepoListCollectionViewCell.self,
+                                forCellWithReuseIdentifier: RepoListCollectionViewCell.reuseIdentifier)
+        collectionView.register(RepoListLoadMoreView.self,
+                                forSupplementaryViewOfKind: RepoListLoadMoreView.reuseIdentifier,
+                                withReuseIdentifier: RepoListLoadMoreView.reuseIdentifier)
         collectionView.backgroundColor = .systemBackground
         collectionView.clipsToBounds = false
-        view.addSubview(collectionView)
-        collectionView.autoPinToSuperview(insetBy: UIEdgeInsets(top: 0,
-                                                                left: Constants.spacing,
-                                                                bottom: 0,
-                                                                right: Constants.spacing))
         
         noResultsLabel = UILabel()
         noResultsLabel.text = "No results found"
         noResultsLabel.textColor = .secondaryLabel
         noResultsLabel.font = .boldSystemFont(ofSize: 16.0)
+        
+        view.addSubview(collectionView)
         view.addSubview(noResultsLabel)
+        
+        collectionView.autoPinToSuperview(insetBy: .init(top: 0,
+                                                         leading: Constants.spacing,
+                                                         bottom: 0,
+                                                         trailing: Constants.spacing))
         noResultsLabel.autoCenterInSuperview()
     }
     
@@ -120,15 +138,22 @@ extension RepoListViewController: RepoListView {
     
     func updateView(state: RepoListViewState) {
         hideLoadingSpinner()
+        loadMoreView?.stopAnimating()
         reloadButton.isEnabled = presenter.isReloadEnabled
+        collectionView.isUserInteractionEnabled = true
         
         switch state {
         case .initial:
             noResultsLabel.isHidden = true
             
         case .loading:
+            collectionView.isUserInteractionEnabled = false
             showLoadingSpinner()
             
+        case .scrollLoading:
+            collectionView.isUserInteractionEnabled = false
+            loadMoreView?.startAnimating()
+
         case .doneResults:
             noResultsLabel.isHidden = true
             applySnapshot()
@@ -156,6 +181,7 @@ extension RepoListViewController {
             case (false, true): return 3
             }
         }
+        let loadMoreSupplementaryItem = createLoadMoreItem()
         
         return UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
             let itemSize = NSCollectionLayoutSize(
@@ -178,10 +204,22 @@ extension RepoListViewController {
             group.interItemSpacing = .fixed(Constants.spacing)
             
             let section = NSCollectionLayoutSection(group: group)
+            section.boundarySupplementaryItems = [loadMoreSupplementaryItem]
             section.interGroupSpacing = Constants.spacing
         
             return section
         }
+    }
+
+    private func createLoadMoreItem() -> NSCollectionLayoutBoundarySupplementaryItem {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(Constants.loadMoreViewHeight)
+        )
+        return NSCollectionLayoutBoundarySupplementaryItem(layoutSize: itemSize,
+                                                           elementKind: RepoListLoadMoreView.reuseIdentifier,
+                                                           alignment: .bottom,
+                                                           absoluteOffset: .init(x: 0, y: 8))
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -241,12 +279,30 @@ extension RepoListViewController {
     }
 }
 
-// MARK: - Sort
+// MARK: - Selection
 
 extension RepoListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedRepository = presenter.getRepository(at: indexPath.item)
         presenter.didSelect(repository: selectedRepository)
+    }
+}
+
+// MARK: - Load More
+
+extension RepoListViewController {
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let contentSize = scrollView.contentSize.height
+        let viewSize = scrollView.frame.size.height - scrollView.contentInset.top - scrollView.contentInset.bottom
+        let scrollLoadingEnabled = contentSize > viewSize
+
+        let currentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+
+        if scrollLoadingEnabled, currentOffset > maximumOffset {
+            presenter.showMoreResults()
+        }
     }
 }

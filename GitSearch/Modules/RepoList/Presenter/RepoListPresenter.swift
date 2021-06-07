@@ -19,6 +19,9 @@ protocol RepoListPresenter {
     func performSearch(_ searchQuery: String) -> Promise<Void>
     @discardableResult
     func repeatLastSearch() -> Promise<Void>
+    @discardableResult
+    func showMoreResults() -> Promise<Void>
+
     func getVisibleResults() -> [Repository]
     func getVisibleCount() -> Int
     func getRepository(at index: Int) -> Repository
@@ -36,6 +39,7 @@ class RepoListPresenterImpl: RepoListPresenter {
     private(set) var selectedSortMethod: SortMethod = .bestMatch
     private(set) var selectedOrder: Order = .descending
     var isReloadEnabled: Bool { lastSearchQuery != nil }
+
     private var lastSearchQuery: String?
     
     func attachToView() {
@@ -51,18 +55,19 @@ class RepoListPresenterImpl: RepoListPresenter {
         let promise = interactor.fetchRepoSearchResults(searchQuery,
                                                         sort: selectedSortMethod,
                                                         order: selectedOrder)
-            .done { results in
-                if results.items.isEmpty {
+            .done { initialResults in
+                if initialResults.items.isEmpty {
                     self.view.updateView(state: .doneEmpty)
                 } else {
                     self.view.updateView(state: .doneResults)
                 }
             }
         
-        promise.catch { error in
-            print(error)
-            self.view.updateView(state: .error)
-        }
+        promise
+            .catch { error in
+                print(error)
+                self.view.updateView(state: .error)
+            }
         
         return promise
     }
@@ -74,9 +79,27 @@ class RepoListPresenterImpl: RepoListPresenter {
         }
         return performSearch(searchQuery)
     }
+
+    @discardableResult
+    func showMoreResults() -> Promise<Void> {
+        view?.updateView(state: .scrollLoading)
+        
+        let promise = interactor.fetchNextPageResults()
+            .done { _ in
+                self.view.updateView(state: .doneResults)
+            }
+
+        promise
+            .catch { error in
+                print(error)
+                self.view.updateView(state: .error)
+            }
+
+        return promise
+    }
     
     func getVisibleResults() -> [Repository] {
-        interactor.results?.items ?? []
+        interactor.fullResults?.items ?? []
     }
     
     func getVisibleCount() -> Int {
