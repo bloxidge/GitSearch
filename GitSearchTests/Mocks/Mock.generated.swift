@@ -785,10 +785,10 @@ open class RepoListInteractorMock: RepoListInteractor, Mock {
         if scopes.contains(.perform) { methodPerformValues = [] }
     }
 
-    public var results: RepositorySearchResults? {
-		get {	invocations.append(.p_results_get); return __p_results ?? optionalGivenGetterValue(.p_results_get, "RepoListInteractorMock - stub value for results was not defined") }
+    public var fullResults: RepositorySearchResults? {
+		get {	invocations.append(.p_fullResults_get); return __p_fullResults ?? optionalGivenGetterValue(.p_fullResults_get, "RepoListInteractorMock - stub value for fullResults was not defined") }
 	}
-	private var __p_results: (RepositorySearchResults)?
+	private var __p_fullResults: (RepositorySearchResults)?
 
 
 
@@ -796,52 +796,67 @@ open class RepoListInteractorMock: RepoListInteractor, Mock {
 
     open func fetchRepoSearchResults(_ searchQuery: String,
                                 sort: SortMethod?,
-                                order: Order?,
-                                resultsPerPage: Int?,
-                                page: Int?) -> Promise<RepositorySearchResults> {
-        addInvocation(.m_fetchRepoSearchResults__searchQuerysort_sortorder_orderresultsPerPage_resultsPerPagepage_page(Parameter<String>.value(`searchQuery`), Parameter<SortMethod?>.value(`sort`), Parameter<Order?>.value(`order`), Parameter<Int?>.value(`resultsPerPage`), Parameter<Int?>.value(`page`)))
-		let perform = methodPerformValue(.m_fetchRepoSearchResults__searchQuerysort_sortorder_orderresultsPerPage_resultsPerPagepage_page(Parameter<String>.value(`searchQuery`), Parameter<SortMethod?>.value(`sort`), Parameter<Order?>.value(`order`), Parameter<Int?>.value(`resultsPerPage`), Parameter<Int?>.value(`page`))) as? (String, SortMethod?, Order?, Int?, Int?) -> Void
-		perform?(`searchQuery`, `sort`, `order`, `resultsPerPage`, `page`)
+                                order: Order?) -> Promise<RepositorySearchResults> {
+        addInvocation(.m_fetchRepoSearchResults__searchQuerysort_sortorder_order(Parameter<String>.value(`searchQuery`), Parameter<SortMethod?>.value(`sort`), Parameter<Order?>.value(`order`)))
+		let perform = methodPerformValue(.m_fetchRepoSearchResults__searchQuerysort_sortorder_order(Parameter<String>.value(`searchQuery`), Parameter<SortMethod?>.value(`sort`), Parameter<Order?>.value(`order`))) as? (String, SortMethod?, Order?) -> Void
+		perform?(`searchQuery`, `sort`, `order`)
 		var __value: Promise<RepositorySearchResults>
 		do {
-		    __value = try methodReturnValue(.m_fetchRepoSearchResults__searchQuerysort_sortorder_orderresultsPerPage_resultsPerPagepage_page(Parameter<String>.value(`searchQuery`), Parameter<SortMethod?>.value(`sort`), Parameter<Order?>.value(`order`), Parameter<Int?>.value(`resultsPerPage`), Parameter<Int?>.value(`page`))).casted()
+		    __value = try methodReturnValue(.m_fetchRepoSearchResults__searchQuerysort_sortorder_order(Parameter<String>.value(`searchQuery`), Parameter<SortMethod?>.value(`sort`), Parameter<Order?>.value(`order`))).casted()
 		} catch {
-			onFatalFailure("Stub return value not specified for fetchRepoSearchResults(_ searchQuery: String, sort: SortMethod?, order: Order?, resultsPerPage: Int?, page: Int?). Use given")
-			Failure("Stub return value not specified for fetchRepoSearchResults(_ searchQuery: String, sort: SortMethod?, order: Order?, resultsPerPage: Int?, page: Int?). Use given")
+			onFatalFailure("Stub return value not specified for fetchRepoSearchResults(_ searchQuery: String, sort: SortMethod?, order: Order?). Use given")
+			Failure("Stub return value not specified for fetchRepoSearchResults(_ searchQuery: String, sort: SortMethod?, order: Order?). Use given")
+		}
+		return __value
+    }
+
+    open func fetchNextPageResults() -> Promise<Void> {
+        addInvocation(.m_fetchNextPageResults)
+		let perform = methodPerformValue(.m_fetchNextPageResults) as? () -> Void
+		perform?()
+		var __value: Promise<Void>
+		do {
+		    __value = try methodReturnValue(.m_fetchNextPageResults).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for fetchNextPageResults(). Use given")
+			Failure("Stub return value not specified for fetchNextPageResults(). Use given")
 		}
 		return __value
     }
 
 
     fileprivate enum MethodType {
-        case m_fetchRepoSearchResults__searchQuerysort_sortorder_orderresultsPerPage_resultsPerPagepage_page(Parameter<String>, Parameter<SortMethod?>, Parameter<Order?>, Parameter<Int?>, Parameter<Int?>)
-        case p_results_get
+        case m_fetchRepoSearchResults__searchQuerysort_sortorder_order(Parameter<String>, Parameter<SortMethod?>, Parameter<Order?>)
+        case m_fetchNextPageResults
+        case p_fullResults_get
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
-            case (.m_fetchRepoSearchResults__searchQuerysort_sortorder_orderresultsPerPage_resultsPerPagepage_page(let lhsSearchquery, let lhsSort, let lhsOrder, let lhsResultsperpage, let lhsPage), .m_fetchRepoSearchResults__searchQuerysort_sortorder_orderresultsPerPage_resultsPerPagepage_page(let rhsSearchquery, let rhsSort, let rhsOrder, let rhsResultsperpage, let rhsPage)):
+            case (.m_fetchRepoSearchResults__searchQuerysort_sortorder_order(let lhsSearchquery, let lhsSort, let lhsOrder), .m_fetchRepoSearchResults__searchQuerysort_sortorder_order(let rhsSearchquery, let rhsSort, let rhsOrder)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSearchquery, rhs: rhsSearchquery, with: matcher), lhsSearchquery, rhsSearchquery, "_ searchQuery"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSort, rhs: rhsSort, with: matcher), lhsSort, rhsSort, "sort"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsOrder, rhs: rhsOrder, with: matcher), lhsOrder, rhsOrder, "order"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsResultsperpage, rhs: rhsResultsperpage, with: matcher), lhsResultsperpage, rhsResultsperpage, "resultsPerPage"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPage, rhs: rhsPage, with: matcher), lhsPage, rhsPage, "page"))
 				return Matcher.ComparisonResult(results)
-            case (.p_results_get,.p_results_get): return Matcher.ComparisonResult.match
+
+            case (.m_fetchNextPageResults, .m_fetchNextPageResults): return .match
+            case (.p_fullResults_get,.p_fullResults_get): return Matcher.ComparisonResult.match
             default: return .none
             }
         }
 
         func intValue() -> Int {
             switch self {
-            case let .m_fetchRepoSearchResults__searchQuerysort_sortorder_orderresultsPerPage_resultsPerPagepage_page(p0, p1, p2, p3, p4): return p0.intValue + p1.intValue + p2.intValue + p3.intValue + p4.intValue
-            case .p_results_get: return 0
+            case let .m_fetchRepoSearchResults__searchQuerysort_sortorder_order(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case .m_fetchNextPageResults: return 0
+            case .p_fullResults_get: return 0
             }
         }
         func assertionName() -> String {
             switch self {
-            case .m_fetchRepoSearchResults__searchQuerysort_sortorder_orderresultsPerPage_resultsPerPagepage_page: return ".fetchRepoSearchResults(_:sort:order:resultsPerPage:page:)"
-            case .p_results_get: return "[get] .results"
+            case .m_fetchRepoSearchResults__searchQuerysort_sortorder_order: return ".fetchRepoSearchResults(_:sort:order:)"
+            case .m_fetchNextPageResults: return ".fetchNextPageResults()"
+            case .p_fullResults_get: return "[get] .fullResults"
             }
         }
     }
@@ -854,17 +869,27 @@ open class RepoListInteractorMock: RepoListInteractor, Mock {
             super.init(products)
         }
 
-        public static func results(getter defaultValue: RepositorySearchResults?...) -> PropertyStub {
-            return Given(method: .p_results_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        public static func fullResults(getter defaultValue: RepositorySearchResults?...) -> PropertyStub {
+            return Given(method: .p_fullResults_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
         }
 
-        public static func fetchRepoSearchResults(_ searchQuery: Parameter<String>, sort: Parameter<SortMethod?>, order: Parameter<Order?>, resultsPerPage: Parameter<Int?>, page: Parameter<Int?>, willReturn: Promise<RepositorySearchResults>...) -> MethodStub {
-            return Given(method: .m_fetchRepoSearchResults__searchQuerysort_sortorder_orderresultsPerPage_resultsPerPagepage_page(`searchQuery`, `sort`, `order`, `resultsPerPage`, `page`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        public static func fetchRepoSearchResults(_ searchQuery: Parameter<String>, sort: Parameter<SortMethod?>, order: Parameter<Order?>, willReturn: Promise<RepositorySearchResults>...) -> MethodStub {
+            return Given(method: .m_fetchRepoSearchResults__searchQuerysort_sortorder_order(`searchQuery`, `sort`, `order`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
-        public static func fetchRepoSearchResults(_ searchQuery: Parameter<String>, sort: Parameter<SortMethod?>, order: Parameter<Order?>, resultsPerPage: Parameter<Int?>, page: Parameter<Int?>, willProduce: (Stubber<Promise<RepositorySearchResults>>) -> Void) -> MethodStub {
+        public static func fetchNextPageResults(willReturn: Promise<Void>...) -> MethodStub {
+            return Given(method: .m_fetchNextPageResults, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func fetchRepoSearchResults(_ searchQuery: Parameter<String>, sort: Parameter<SortMethod?>, order: Parameter<Order?>, willProduce: (Stubber<Promise<RepositorySearchResults>>) -> Void) -> MethodStub {
             let willReturn: [Promise<RepositorySearchResults>] = []
-			let given: Given = { return Given(method: .m_fetchRepoSearchResults__searchQuerysort_sortorder_orderresultsPerPage_resultsPerPagepage_page(`searchQuery`, `sort`, `order`, `resultsPerPage`, `page`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let given: Given = { return Given(method: .m_fetchRepoSearchResults__searchQuerysort_sortorder_order(`searchQuery`, `sort`, `order`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
 			let stubber = given.stub(for: (Promise<RepositorySearchResults>).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func fetchNextPageResults(willProduce: (Stubber<Promise<Void>>) -> Void) -> MethodStub {
+            let willReturn: [Promise<Void>] = []
+			let given: Given = { return Given(method: .m_fetchNextPageResults, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Promise<Void>).self)
 			willProduce(stubber)
 			return given
         }
@@ -873,16 +898,20 @@ open class RepoListInteractorMock: RepoListInteractor, Mock {
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func fetchRepoSearchResults(_ searchQuery: Parameter<String>, sort: Parameter<SortMethod?>, order: Parameter<Order?>, resultsPerPage: Parameter<Int?>, page: Parameter<Int?>) -> Verify { return Verify(method: .m_fetchRepoSearchResults__searchQuerysort_sortorder_orderresultsPerPage_resultsPerPagepage_page(`searchQuery`, `sort`, `order`, `resultsPerPage`, `page`))}
-        public static var results: Verify { return Verify(method: .p_results_get) }
+        public static func fetchRepoSearchResults(_ searchQuery: Parameter<String>, sort: Parameter<SortMethod?>, order: Parameter<Order?>) -> Verify { return Verify(method: .m_fetchRepoSearchResults__searchQuerysort_sortorder_order(`searchQuery`, `sort`, `order`))}
+        public static func fetchNextPageResults() -> Verify { return Verify(method: .m_fetchNextPageResults)}
+        public static var fullResults: Verify { return Verify(method: .p_fullResults_get) }
     }
 
     public struct Perform {
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func fetchRepoSearchResults(_ searchQuery: Parameter<String>, sort: Parameter<SortMethod?>, order: Parameter<Order?>, resultsPerPage: Parameter<Int?>, page: Parameter<Int?>, perform: @escaping (String, SortMethod?, Order?, Int?, Int?) -> Void) -> Perform {
-            return Perform(method: .m_fetchRepoSearchResults__searchQuerysort_sortorder_orderresultsPerPage_resultsPerPagepage_page(`searchQuery`, `sort`, `order`, `resultsPerPage`, `page`), performs: perform)
+        public static func fetchRepoSearchResults(_ searchQuery: Parameter<String>, sort: Parameter<SortMethod?>, order: Parameter<Order?>, perform: @escaping (String, SortMethod?, Order?) -> Void) -> Perform {
+            return Perform(method: .m_fetchRepoSearchResults__searchQuerysort_sortorder_order(`searchQuery`, `sort`, `order`), performs: perform)
+        }
+        public static func fetchNextPageResults(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_fetchNextPageResults, performs: perform)
         }
     }
 

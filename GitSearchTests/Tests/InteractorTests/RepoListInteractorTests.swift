@@ -38,9 +38,7 @@ class RepoListInteractorTests: XCTestCase {
         //   fetchRepoSearchResults method called
         _ = sut.fetchRepoSearchResults("SearchString",
                                        sort: .helpWantedIssues,
-                                       order: .ascending,
-                                       resultsPerPage: 20,
-                                       page: 4)
+                                       order: .ascending)
 
         // Then
         //   It should send a correct request
@@ -50,8 +48,8 @@ class RepoListInteractorTests: XCTestCase {
             return queryParams["q"] == "SearchString" &&
                 queryParams["sort"] == "help-wanted-issues" &&
                 queryParams["order"] == "asc" &&
-                queryParams["per_page"] == "20" &&
-                queryParams["page"] == "4"
+                queryParams["per_page"] == nil &&
+                queryParams["page"] == "1"
         })
         Verify(apiMock, .send(request: matcher.getParameter()))
     }
@@ -81,7 +79,7 @@ class RepoListInteractorTests: XCTestCase {
         
         // And
         //   Result should be cached in local variable
-        XCTAssertEqual(sut.results, capturedResult)
+        XCTAssertEqual(sut.fullResults, capturedResult)
     }
     
     func testfetchRepoSearchResultsError() {
@@ -108,6 +106,6 @@ class RepoListInteractorTests: XCTestCase {
         
         // And
         //   Result should not be cached in local variable
-        XCTAssertNil(sut.results)
+        XCTAssertNil(sut.fullResults)
     }
 }
