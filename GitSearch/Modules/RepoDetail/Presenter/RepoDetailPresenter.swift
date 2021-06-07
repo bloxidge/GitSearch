@@ -45,7 +45,8 @@ class RepoDetailPresenterImpl: RepoDetailPresenter {
                 self.view.updateView(state: .readmeSuccess)
             }
             
-        promise.catch { error in
+        promise
+            .catch { error in
                 if let httpError = error as? PMKHTTPError,
                    case .badStatusCode(let code, _, _) = httpError, code == 404 {
                     self.view.updateView(state: .readmeNotFound)

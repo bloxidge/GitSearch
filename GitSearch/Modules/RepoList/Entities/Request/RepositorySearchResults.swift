@@ -10,5 +10,5 @@ import Foundation
 struct RepositorySearchResults: Decodable, Equatable {
     let totalCount: Int
     let incompleteResults: Bool
-    let items: [Repository]
+    var items: [Repository]
 }
