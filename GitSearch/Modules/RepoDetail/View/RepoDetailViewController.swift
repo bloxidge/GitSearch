@@ -80,7 +80,7 @@ class RepoDetailViewController: UIViewController {
         imageContainer.shadowOffset = .init(x: -2, y: 2)
         imageContainer.addSubview(iconImageView)
         
-        iconImageView.autoPinToSuperview(insetBy: UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4))
+        iconImageView.autoPinToSuperview(insetBy: .init(top: 4, leading: 4, bottom: 4, trailing: 4))
         
         let closeButton = UIButton(type: .close, primaryAction: UIAction(handler: closeButtonActionHandler))
         
@@ -101,7 +101,7 @@ class RepoDetailViewController: UIViewController {
         
         headerStack.autoPin(toSafeAreaEdge: .top, insetBy: 16)
         headerStack.autoPin(toSafeAreaEdge: .leading, insetBy: 16)
-        headerStack.autoPinToSafeArea(insetBy: UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16))
+        headerStack.autoPinToSafeArea(insetBy: .init(top: 16, leading: 16, bottom: 16, trailing: 16))
         
         return headerView
     }

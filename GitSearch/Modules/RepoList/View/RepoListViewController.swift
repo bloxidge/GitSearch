@@ -74,17 +74,19 @@ class RepoListViewController: UIViewController {
                                 withReuseIdentifier: RepoListLoadMoreView.reuseIdentifier)
         collectionView.backgroundColor = .systemBackground
         collectionView.clipsToBounds = false
-        view.addSubview(collectionView)
-        collectionView.autoPinToSuperview(insetBy: UIEdgeInsets(top: 0,
-                                                                left: Constants.spacing,
-                                                                bottom: 0,
-                                                                right: Constants.spacing))
         
         noResultsLabel = UILabel()
         noResultsLabel.text = "No results found"
         noResultsLabel.textColor = .secondaryLabel
         noResultsLabel.font = .boldSystemFont(ofSize: 16.0)
+        
+        view.addSubview(collectionView)
         view.addSubview(noResultsLabel)
+        
+        collectionView.autoPinToSuperview(insetBy: .init(top: 0,
+                                                         leading: Constants.spacing,
+                                                         bottom: 0,
+                                                         trailing: Constants.spacing))
         noResultsLabel.autoCenterInSuperview()
     }
     
