@@ -108,4 +108,89 @@ class RepoListInteractorTests: XCTestCase {
         //   Result should not be cached in local variable
         XCTAssertNil(sut.fullResults)
     }
+
+    func testfetchNextPageResultsRequestValid() {
+        // Given
+        //   API will return valid response
+        let expectedResponse = RepositoryFixtures.searchResults
+        Given(apiMock, .send(request: .any(Request<RepositorySearchResults>.self),
+                             willReturn: Promise.value(expectedResponse)))
+
+        // And
+        //   fetchRepoSearchResults method fulfills with results
+        waitFor(sut.fetchRepoSearchResults("RepoName",
+                                           sort: .updated,
+                                           order: .descending))
+        apiMock.resetMock(.invocation) // Ignore first invocation of api request
+
+        // When
+        //   fetchNextPageResults method called
+        _ = sut.fetchNextPageResults()
+
+        // Then
+        //   It should send a correct request with "page" incremented to 2
+        let matcher = RequestMatcher<RepositorySearchResults>(method: .get,
+                                                              path: "search/repositories",
+                                                              queryValidator: { queryParams in
+            return queryParams["q"] == "RepoName" &&
+                queryParams["sort"] == "updated" &&
+                queryParams["order"] == "desc" &&
+                queryParams["per_page"] == nil &&
+                queryParams["page"] == "2"
+        })
+        Verify(apiMock, .send(request: matcher.getParameter()))
+    }
+
+    func testfetchNextPageResultsSuccess() {
+        // Given
+        //   API will return valid response
+        let expectedResponse = RepositoryFixtures.searchResults
+        Given(apiMock, .send(request: .any(Request<RepositorySearchResults>.self),
+                             willReturn: Promise.value(expectedResponse)))
+
+        // And
+        //   fetchRepoSearchResults method fulfills with results
+        var initialResult: RepositorySearchResults?
+        var initialError: Error?
+        waitFor(sut.fetchRepoSearchResults(""),
+                &initialResult,
+                &initialError)
+
+        // When
+        //   fetchNextPageResults method resolves
+        var capturedResult: Void?
+        var capturedError: Error?
+        waitFor(sut.fetchNextPageResults(),
+                &capturedResult,
+                &capturedError)
+
+        // Then
+        //   It should not throw an error
+        XCTAssertNil(capturedError)
+
+        // And
+        //   Full results should be cached in local variable with items
+        //   accrued with previous results for this search
+        XCTAssertEqual(sut.fullResults?.items, initialResult!.items + expectedResponse.items)
+    }
+
+    func testfetchNextPageResultsErrorNoInitialSearch() {
+        // Given
+        //   API will return valid response
+        let expectedResponse = RepositoryFixtures.searchResults
+        Given(apiMock, .send(request: .any(Request<RepositorySearchResults>.self),
+                             willReturn: Promise.value(expectedResponse)))
+
+        // When
+        //   fetchNextPageResults method resolves without previously calling fetchRepoSearchResults
+        var capturedResult: Void?
+        var capturedError: Error?
+        waitFor(sut.fetchNextPageResults(),
+                &capturedResult,
+                &capturedError)
+
+        // Then
+        //   It should throw a `RepoSearchError.missingInitialSearch` error
+        XCTAssertEqual(capturedError as? RepoSearchError, .missingInitialSearch)
+    }
 }

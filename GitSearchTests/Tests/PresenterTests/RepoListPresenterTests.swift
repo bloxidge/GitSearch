@@ -117,6 +117,36 @@ class RepoListPresenterTests: XCTestCase {
         Verify(view, 2, .updateView(state: .value(.loading)))
         Verify(view, 2, .updateView(state: .value(.doneResults)))
     }
+
+    func testShowMoreResultsSuccessState() {
+        // Given
+        //   Interactor fetchNextPageResults will succeed
+        Given(interactor, .fetchNextPageResults(willReturn: Promise()))
+
+        // When
+        //   Presenter is requested to show more results
+        waitFor(sut.showMoreResults())
+
+        // Then
+        //   View should receive view state update callbacks for `.scrollLoading` and `.doneResults`
+        Verify(view, .updateView(state: .value(.scrollLoading)))
+        Verify(view, .updateView(state: .value(.doneResults)))
+    }
+
+    func testShowMoreResultsErrorState() {
+        // Given
+        //   Interactor returns an error
+        Given(interactor, .fetchNextPageResults(willReturn: Promise(error: RepoSearchError.missingInitialSearch)))
+
+        // When
+        //   Presenter is requested to show more results
+        waitFor(sut.showMoreResults())
+
+        // Then
+        //   View should receive view state update callbacks for `.scrollLoading` and `.doneEmpty`
+        Verify(view, .updateView(state: .value(.scrollLoading)))
+        Verify(view, .updateView(state: .value(.error)))
+    }
     
     func testGetVisibleResults() {
         let results = RepositoryFixtures.searchResults
