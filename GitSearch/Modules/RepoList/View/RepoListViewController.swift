@@ -138,15 +138,18 @@ extension RepoListViewController: RepoListView {
         hideLoadingSpinner()
         loadMoreView?.stopAnimating()
         reloadButton.isEnabled = presenter.isReloadEnabled
+        collectionView.isUserInteractionEnabled = true
         
         switch state {
         case .initial:
             noResultsLabel.isHidden = true
             
         case .loading:
+            collectionView.isUserInteractionEnabled = false
             showLoadingSpinner()
             
         case .scrollLoading:
+            collectionView.isUserInteractionEnabled = false
             loadMoreView?.startAnimating()
 
         case .doneResults:
