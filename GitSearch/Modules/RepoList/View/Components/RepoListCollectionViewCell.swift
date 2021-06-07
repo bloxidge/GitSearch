@@ -9,6 +9,8 @@ import UIKit
 import Kingfisher
 
 class RepoListCollectionViewCell: UICollectionViewCell {
+
+    static let reuseIdentifier = "repo-list-cell"
     
     private var titleLabel: UILabel!
     private var authorLabel: UILabel!

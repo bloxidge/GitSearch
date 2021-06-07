@@ -48,7 +48,7 @@ class RepoListPresenterTests: XCTestCase {
     func testPerformSearchSuccessPopulatedResultsState() {
         // Given
         //   Interactor returns non-empty results
-        Given(interactor, .fetchRepoSearchResults(.any, sort: .any, order: .any, resultsPerPage: .any, page: .any,
+        Given(interactor, .fetchRepoSearchResults(.any, sort: .any, order: .any,
                                                   willReturn: Promise.value(RepositoryFixtures.searchResults)))
         
         // When
@@ -64,7 +64,7 @@ class RepoListPresenterTests: XCTestCase {
     func testPerformSearchSuccessEmptyResultsState() {
         // Given
         //   Interactor returns no results
-        Given(interactor, .fetchRepoSearchResults(.any, sort: .any, order: .any, resultsPerPage: .any, page: .any,
+        Given(interactor, .fetchRepoSearchResults(.any, sort: .any, order: .any,
                                                   willReturn: Promise.value(RepositoryFixtures.searchResultsEmpty)))
         
         // When
@@ -80,7 +80,7 @@ class RepoListPresenterTests: XCTestCase {
     func testPerformSearchFailedErrorState() {
         // Given
         //   Interactor returns an error
-        Given(interactor, .fetchRepoSearchResults(.any, sort: .any, order: .any, resultsPerPage: .any, page: .any,
+        Given(interactor, .fetchRepoSearchResults(.any, sort: .any, order: .any,
                                                   willReturn: Promise(error: ApiError.invalidResponse)))
         
         // When
@@ -96,7 +96,7 @@ class RepoListPresenterTests: XCTestCase {
     func testRepeatLastSearch() {
         // Given
         //   Interactor returns results
-        Given(interactor, .fetchRepoSearchResults(.any, sort: .any, order: .any, resultsPerPage: .any, page: .any,
+        Given(interactor, .fetchRepoSearchResults(.any, sort: .any, order: .any,
                                                   willReturn: Promise.value(RepositoryFixtures.searchResults)))
         
         // When
@@ -105,7 +105,7 @@ class RepoListPresenterTests: XCTestCase {
         
         // Then
         //   No search request is made
-        Verify(interactor, 0, .fetchRepoSearchResults(.any, sort: .any, order: .any, resultsPerPage: .any, page: .any))
+        Verify(interactor, 0, .fetchRepoSearchResults(.any, sort: .any, order: .any))
         
         // When
         //   Presenter is requested to repeat last search after a search has occurred
@@ -117,13 +117,43 @@ class RepoListPresenterTests: XCTestCase {
         Verify(view, 2, .updateView(state: .value(.loading)))
         Verify(view, 2, .updateView(state: .value(.doneResults)))
     }
+
+    func testShowMoreResultsSuccessState() {
+        // Given
+        //   Interactor fetchNextPageResults will succeed
+        Given(interactor, .fetchNextPageResults(willReturn: Promise()))
+
+        // When
+        //   Presenter is requested to show more results
+        waitFor(sut.showMoreResults())
+
+        // Then
+        //   View should receive view state update callbacks for `.scrollLoading` and `.doneResults`
+        Verify(view, .updateView(state: .value(.scrollLoading)))
+        Verify(view, .updateView(state: .value(.doneResults)))
+    }
+
+    func testShowMoreResultsErrorState() {
+        // Given
+        //   Interactor returns an error
+        Given(interactor, .fetchNextPageResults(willReturn: Promise(error: RepoSearchError.missingInitialSearch)))
+
+        // When
+        //   Presenter is requested to show more results
+        waitFor(sut.showMoreResults())
+
+        // Then
+        //   View should receive view state update callbacks for `.scrollLoading` and `.doneEmpty`
+        Verify(view, .updateView(state: .value(.scrollLoading)))
+        Verify(view, .updateView(state: .value(.error)))
+    }
     
     func testGetVisibleResults() {
         let results = RepositoryFixtures.searchResults
         
         // Given
         //   Interactor has cached value for `results`
-        Given(interactor, .results(getter: results))
+        Given(interactor, .fullResults(getter: results))
         
         // Then
         //   Method should return items in `results`
@@ -135,7 +165,7 @@ class RepoListPresenterTests: XCTestCase {
         
         // Given
         //   Interactor has cached value for `results`
-        Given(interactor, .results(getter: results))
+        Given(interactor, .fullResults(getter: results))
         
         // Then
         //   Method should return repository at index in `results.items`

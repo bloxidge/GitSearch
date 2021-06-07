@@ -63,6 +63,7 @@
 		FD8DD6DA266C5F92004E582A /* RepositoryContentFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6D9266C5F92004E582A /* RepositoryContentFixtures.swift */; };
 		FD8DD6E0266C7CE3004E582A /* RepoDetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6DD266C6A73004E582A /* RepoDetailPresenterTests.swift */; };
 		FD8DD6E1266C7D31004E582A /* RepoListPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8DD6DC266C6A73004E582A /* RepoListPresenterTests.swift */; };
+		FD98729D266D22F200DF13C7 /* RepoListLoadMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD98729C266D22F200DF13C7 /* RepoListLoadMoreView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +132,7 @@
 		FD8DD6D9266C5F92004E582A /* RepositoryContentFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryContentFixtures.swift; sourceTree = "<group>"; };
 		FD8DD6DC266C6A73004E582A /* RepoListPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoListPresenterTests.swift; sourceTree = "<group>"; };
 		FD8DD6DD266C6A73004E582A /* RepoDetailPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDetailPresenterTests.swift; sourceTree = "<group>"; };
+		FD98729C266D22F200DF13C7 /* RepoListLoadMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoListLoadMoreView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -359,6 +361,7 @@
 			isa = PBXGroup;
 			children = (
 				FD425C862666A2F600AA1131 /* RepoListCollectionViewCell.swift */,
+				FD98729C266D22F200DF13C7 /* RepoListLoadMoreView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -666,6 +669,7 @@
 				FD4AA9F826698A3B00A34D38 /* Int+Utils.swift in Sources */,
 				FD425C7B266595C700AA1131 /* RepositorySearchResults.swift in Sources */,
 				FD425C3426653CF700AA1131 /* UIScrollView+refresh.swift in Sources */,
+				FD98729D266D22F200DF13C7 /* RepoListLoadMoreView.swift in Sources */,
 				FD425C822665B79E00AA1131 /* Order.swift in Sources */,
 				FD425C60266554CA00AA1131 /* RepoListPresenter.swift in Sources */,
 				FD8DD6D6266C21A1004E582A /* ApiError.swift in Sources */,
